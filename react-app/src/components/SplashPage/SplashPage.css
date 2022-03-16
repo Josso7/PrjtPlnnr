@@ -1,0 +1,104 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    background: #f7fdf3;
+}
+
+.top-bar-container {
+    display: flex;
+    flex: row;
+    align-items: center;
+    color: #347571;
+    margin-top: 3%;
+}
+
+.new-project-button {
+    margin-left: 5%;
+    color: #004138;
+    font-family: 'Barlow';
+}
+
+.new-project-button:hover {
+    cursor: pointer;
+}
+
+.projects-button {
+    margin-left: 5%;
+}
+
+.signup-button {
+    margin-left: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #004138;
+    border-radius: 10px;
+}
+
+.signup-text {
+    margin-left: 45px;
+    margin-right: 45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.login-button {
+    margin-left: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #004138;
+    border-radius: 10px;
+}
+
+.login-text {
+    margin-left: 45px;
+    margin-right: 45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.middle-content-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10%;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5.5%;
+}
+
+.prjct-logo-text {
+    font-size: 150px;
+    font-family: 'Maragsa';
+    color: #347571;
+}
+
+.plnnr-logo-text {
+    margin-top: -25px;
+    font-size: 150px;
+    font-family: 'Maragsa';
+    color: 	#35b276;
+}
+
+.slogan-text {
+    font-size: 36px;
+    margin-top: 15%;
+    font-family: 'Maragsa';
+    color: #b8e28a;
+}
+
+.splash-image-container {
+    margin-left: 40%;
+}
+
+a {
+    color: #004138;
+    text-decoration: none;
+    font-family: 'Barlow';
+}

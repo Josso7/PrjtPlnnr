@@ -1,7 +1,7 @@
-const GET_PROJECTS = '/project/GET_PROJECTS';
+const GET_PROJECTS_BY_USER = '/project/GET_PROJECTS_BY_USER';
 
 const loadUserProjects = (projects) => ({
-    type: GET_PROJECTS,
+    type: GET_PROJECTS_BY_USER,
     projects
 });
 
@@ -38,10 +38,10 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 
     switch(action.type){
-      case GET_VIDEOS: {
+      case GET_PROJECTS_BY_USER: {
         return {
             ...state,
-            entries: [...action.videos.videos]
+            entries: [...action.projects.projects]
         };
       };
       default: return state;

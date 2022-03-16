@@ -1,1 +1,8 @@
 /* TODO Add site wide styles */
+
+@font-face {
+    font-family: 'Maragsa';
+    src: local('Maragsa'), url(./fonts/Maragsa.otf) format('opentype');
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }

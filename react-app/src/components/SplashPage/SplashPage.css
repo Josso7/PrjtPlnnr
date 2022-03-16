@@ -1,0 +1,89 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    background: #5ec57e;
+}
+
+.top-bar-container {
+    display: flex;
+    flex: row;
+    align-items: center;
+    color: #347571;
+    margin-top: 3%;
+}
+
+.new-project-button {
+    margin-left: 5%;
+    color: #004138;
+    font-family: 'Barlow';
+}
+
+.new-project-button:hover {
+    cursor: pointer;
+}
+
+.projects-button {
+    margin-left: 5%;
+}
+
+.signup-button {
+    margin-left: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #004138;
+    border-radius: 5px;
+}
+
+.login-button {
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #004138;
+    border-radius: 5px;
+}
+
+.middle-content-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 8%;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5.5%;
+}
+
+.prjct-logo-text {
+    font-size: 150px;
+    font-family: 'Maragsa';
+    color: #004138;
+}
+
+.plnnr-logo-text {
+    font-size: 150px;
+    font-family: 'Maragsa';
+    color: 	#28bd28;
+}
+
+.slogan-text {
+    font-size: 36px;
+    margin-top: 15%;
+    font-family: 'Maragsa';
+    color: #73e600;
+}
+
+.splash-image-container {
+    margin-left: 40%;
+}
+
+a {
+    color: #004138;
+    text-decoration: none;
+    font-family: 'Barlow';
+}

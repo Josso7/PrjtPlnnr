@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.login-form-container {
+    position: absolute;
+    display: flex;
+    top: 30%;
+    bottom: 50%;
+    left: 35%;
+    right: 40%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Barlow';
+
+}
+
+.email-label {
+    color: #004138;
+    min-width: 100px;
+    text-align: end;
+}
+
+.password-label {
+    color: #004138;
+    min-width: 100px;
+    text-align: end;
+}
+
+.password-container {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.email-container {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.email-input {
+    all:unset;
+    width: 400px !important;
+    padding-left: 10px;
+    margin-left: 10px;
+    border: 1px solid #b8e28a;
+    border-radius: 5px;
+    height: 2rem;
+    color: #5ec57e;
+}
+
+.password-input {
+    all:unset;
+    width: 400px !important;
+    padding-left: 10px;
+    margin-left: 10px;
+    border: 1px solid #b8e28a;
+    border-radius: 5px;
+    height: 2rem;
+    color: #5ec57e;
+}
+
+.login-submit-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #004138;
+    border-radius: 10px;
+    margin-left: 100px;
+    margin-top: 20px;
+}
+
+.login-submit-button {
+    all: unset;
+    margin-left: 45px;
+    margin-right: 45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

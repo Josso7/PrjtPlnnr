@@ -18,7 +18,7 @@ def post_project():
 
     return project.to_dict()
 
-@project_routes.route('/<int: user_id>', methods=['GET'])
+@project_routes.route('/<int:user_id>', methods=['GET'])
 @login_required
 def get_projects_by_user(user_id):
 

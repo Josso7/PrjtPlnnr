@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.login-form-container {
+    position: absolute;
+    display: flex;
+    top: 40%;
+    bottom: 50%;
+    left: 33%;
+    right: 40%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Barlow';
+
+}
+
+.username-label {
+    color: #004138;
+    min-width: 150px;
+    text-align:center;
+}
+
+.username-container {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.username-input {
+    all:unset;
+    width: 290px !important;
+    padding-left: 10px;
+    margin-left: 10px;
+    border: 1px solid #b8e28a;
+    border-radius: 5px;
+    height: 2rem;
+    color: #5ec57e;
+}
+
+.email-label {
+    color: #004138;
+    min-width: 150px;
+    text-align: center;
+}
+
+.password-label {
+    color: #004138;
+    min-width: 150px;
+    text-align: center;
+}
+
+.password-container {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.email-container {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.email-input {
+    all:unset;
+    width: 290px !important;
+    padding-left: 10px;
+    margin-left: 10px;
+    border: 1px solid #b8e28a;
+    border-radius: 5px;
+    height: 2rem;
+    color: #5ec57e;
+}
+
+.password-input {
+    all:unset;
+    width: 290px !important;
+    padding-left: 10px;
+    margin-left: 10px;
+    border: 1px solid #b8e28a;
+    border-radius: 5px;
+    height: 2rem;
+    color: #5ec57e;
+}
+
+.login-submit-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #004138;
+    border-radius: 10px;
+    margin-left: 160px;
+    margin-top: 20px;
+}
+
+.login-submit-button {
+    all: unset;
+    margin-left: 45px;
+    margin-right: 45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.repeat-password-label {
+    color: #004138;
+    min-width: 150px;
+    text-align: center;
+}
+
+.repeat-password-container {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.repeat-password-input {
+    all:unset;
+    width: 290px !important;
+    padding-left: 10px;
+    margin-left: 10px;
+    border: 1px solid #b8e28a;
+    border-radius: 5px;
+    height: 2rem;
+    color: #5ec57e;
+}

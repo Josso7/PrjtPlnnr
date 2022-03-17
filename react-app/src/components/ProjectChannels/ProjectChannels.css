@@ -8,15 +8,116 @@
     width: 240px;
     min-height: 100%;
     background: #dcf4ce;
+    color: #356276;
 }
 
-.selected-project-text {
-    margin-top: 70%;
+.username-text {
     margin-left: 15px;
     font-family: 'Maragsa';
     font-size: 20px;
 }
 
+.selected-project-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10%;
+    margin-left: 15px;
+}
+
+.selected-project-text {
+    font-family: 'Maragsa';
+    font-size: 20px;
+    min-width: 180px;
+}
+
+.add-channel-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+.add-channel-button:hover {
+    cursor: pointer;
+}
+
+
 .single-channel-container {
     margin-left: 15px;
 }
+
+.progress-bar-wrapper {
+    width: 125.4px;
+    height: 125.4px;
+    /* margin-top: 20px; */
+    display: block;
+    margin: auto;
+    border: 2px solid #356276;
+    border-radius: 50%;
+}
+
+.dashboard {
+    /* display: block; */
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  svg {
+    display: block;
+    width: 114px;
+    height: 114px;
+    margin: auto;
+    margin-top: 6px;
+  }
+
+  .bg {
+    fill: none;
+    stroke-width: 10px;
+    /* stroke: #1A2C34; */
+  }
+
+  [class^="meter-"] {
+    fill: none;
+    stroke-width: 10px;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+
+  }
+
+  .meter-2 {
+    stroke: #b8e28a;
+    stroke-dasharray: 360;
+    stroke-dashoffset: 160;
+    animation: progress-2 .75s ease-out;
+  }
+
+  @keyframes progress-1 {
+      from {
+          stroke-dashoffset: 360;
+      }
+      to {
+          stroke-dashoffset: 100;
+      }
+  }
+
+  @keyframes progress-2 {
+    from {
+      stroke-dashoffset: 360;
+    }
+    to {
+      stroke-dashoffset: 160;
+    }
+  }
+
+  @keyframes progress-3 {
+    from {
+      stroke-dashoffset: 360;
+    }
+    to {
+      stroke-dashoffset: 250;
+    }
+  }

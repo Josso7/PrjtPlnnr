@@ -1,8 +1,18 @@
 import './SplashPage.css';
 import SplashImage from '../../images/todo-image.png';
 import { NavLink } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../store/session';
 function SplashPage(){
+
+    const dispatch = useDispatch();
+    const user = useSelector(state => state?.session?.user);
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        dispatch(logout());
+    }
+
     return (
         <>
         <div className='top-bar-container'>
@@ -14,22 +24,30 @@ function SplashPage(){
             </div>
 
             <NavLink className='projects-button' to='/projects'>
-            <div className='my-projects-button'>
-                MY PROJECTS
-            </div>
+                <div className='my-projects-button'>
+                    MY PROJECTS
+                </div>
             </NavLink>
 
-            <NavLink className='signup-button' to='/signup'>
-            <div className='signup-text'>
-                SIGN UP
-            </div>
-            </NavLink>
+            {!user && <NavLink className='signup-button' to='/signup'>
+                <div className='signup-text'>
+                    SIGN UP
+                </div>
+            </NavLink>}
 
-            <NavLink className='login-button' to='/login'>
-            <div className='login-text'>
-                LOG IN
-            </div>
-            </NavLink>
+            {!user && <NavLink className='login-button' to='/login'>
+                <div className='login-text'>
+                    LOG IN
+                </div>
+            </NavLink>}
+
+            {user && <div className='logout-button'>
+                <div
+                className='logout-text'
+                onClick={(e) => handleLogout(e)}>
+                    LOG OUT
+                </div>
+            </div>}
         </div>
 
         <div className='middle-content-container'>

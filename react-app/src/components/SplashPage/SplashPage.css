@@ -102,3 +102,24 @@ a {
     text-decoration: none;
     font-family: 'Barlow';
 }
+
+.logout-button {
+    margin-left: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #004138;
+    border-radius: 10px;
+    font-family: 'Barlow';
+}
+
+.logout-text {
+    margin-left: 45px;
+    margin-right: 45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.logout-button:hover {
+    cursor: pointer;
+}

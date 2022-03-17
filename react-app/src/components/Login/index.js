@@ -2,9 +2,11 @@ import './Login.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/session';
+import { useHistory } from 'react-router-dom';
 
 function Login(){
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const [email, setEmail] = useState('');
@@ -16,6 +18,7 @@ function Login(){
         if (data) {
           setErrors(data);
         }
+        if(errors.length === 0) history.push('/home');
     }
 
     return (

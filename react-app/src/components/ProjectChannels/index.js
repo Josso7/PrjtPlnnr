@@ -13,19 +13,22 @@ function ProjectChannels({ activeProject }){
 
     useEffect(() => {
         dispatch(getProjectsById(user.id))
-        dispatch(getChannelsById(activeProject))
+        // dispatch(getChannelsById(activeProject))
     },[])
 
     return(
         <>
-            <div>
+            <div className='channels-container'>
+                <div className='selected-project-text'>
+                    {projects && activeProject && projects?.find(project => project.id == activeProject).name}
+                </div>
                 {channels && channels.map(channel => (
                 <div
-                id={channel.id}
+                key={channel.id}
                 className='single-channel-container'>
 
                     <div>
-                        {channel.name}
+                        #{channel.name}
                     </div>
 
                 </div>))}

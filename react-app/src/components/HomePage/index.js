@@ -15,8 +15,18 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(getProjectsById(user.id))
-        // dispatch(getChannelsById())
     },[])
+
+    useEffect(() => {
+        console.log(activeProject)
+        if (activeProject) dispatch(getChannelsById(activeProject))
+    },[activeProject])
+
+    useEffect(() => {
+        console.log(activeProject)
+        if(projects) setActiveProject(projects[0].id)
+        console.log(activeProject)
+    },[projects])
 
     const handleActiveProject = (projectId) => {
         setActiveProject(projectId)

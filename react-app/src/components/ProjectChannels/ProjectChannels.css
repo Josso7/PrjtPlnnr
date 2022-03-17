@@ -1,0 +1,22 @@
+.channels-container {
+    position: absolute;
+    left: 72px;
+    top: 0;
+    font-family: 'Barlow';
+    font-size: 16px;
+    padding-top: 20px;
+    width: 240px;
+    min-height: 100%;
+    background: #dcf4ce;
+}
+
+.selected-project-text {
+    margin-top: 70%;
+    margin-left: 15px;
+    font-family: 'Maragsa';
+    font-size: 20px;
+}
+
+.single-channel-container {
+    margin-left: 15px;
+}

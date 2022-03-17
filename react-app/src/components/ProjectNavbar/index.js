@@ -5,16 +5,22 @@ import { getProjectsById } from '../../store/project';
 
 function ProjectNavbar({handleActiveProject}){
 
+    const dispatch = useDispatch();
     const projects = useSelector(state => state?.projects?.entries);
     const user = useSelector(state => state?.session?.user);
     const [activeProject, setActiveProject] = useState('');
 
+    // useEffect(() => {
+    //     dispatch(getProjectsById(user.id))
+    // },[])
+
     useEffect(() => {
         handleActiveProject(activeProject);
-    },[])
+    },[activeProject])
 
     const handleClick = (projectId) => {
         setActiveProject(projectId);
+        console.log(activeProject);
     }
 
     return (

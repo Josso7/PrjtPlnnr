@@ -83,3 +83,11 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.login-submit-button-container:hover {
+    cursor: pointer;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: #5ec57e;
+  }

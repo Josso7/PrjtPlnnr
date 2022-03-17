@@ -1,9 +1,10 @@
 import './ProjectNavbar.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getProjectsById } from '../../store/project';
 function ProjectNavbar(){
 
+    const dispatch = useDispatch();
     const projects = useSelector(state => state?.projects?.entries);
     const user = useSelector(state => state?.session?.user);
 

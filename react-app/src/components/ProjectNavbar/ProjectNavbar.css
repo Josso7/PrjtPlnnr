@@ -1,0 +1,57 @@
+.projects-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 70px;
+    border: 1px solid black;
+    min-height: 100%;
+}
+
+.project-planner-logo {
+    margin-top: 10px;
+}
+
+.prjct-text {
+    font-size: 14px;
+    font-family: 'Maragsa';
+    color: #347571;
+}
+
+.plnnr-text {
+    font-size: 14px;
+    font-family: 'Maragsa';
+    color: 	#35b276;
+}
+
+.single-project-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.single-project-container:hover {
+    cursor: pointer;
+}
+
+.server-icon {
+    width: 48px;
+    height: 48px;
+    border: 0px;
+    border-radius: 50%;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.server-text {
+    color: #b8e28a;
+    font-size: 20px;
+    font-family: 'Barlow';
+}

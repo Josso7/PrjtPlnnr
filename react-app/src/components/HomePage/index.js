@@ -6,8 +6,8 @@ import ProjectNavbar from '../ProjectNavbar';
 
 function HomePage() {
 
-
-    const channels = useSelector(state => state?.channels?.entries)
+    const projects = useSelector(state => state?.projects?.entries);
+    const channels = useSelector(state => state?.channels?.entries);
 
     return (
         <>

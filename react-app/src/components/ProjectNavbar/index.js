@@ -15,9 +15,16 @@ function ProjectNavbar(){
     return (
         <>
             <div className='projects-container'>
-                <div>
-                    {projects && projects[0].name}
+                <div className='project-planner-logo'>
+                    <span className='prjct-text'>Prjct </span><span className='plnnr-text'>Plnnr</span>
                 </div>
+                {projects && projects.map(project => (<div className='single-project-container'>
+                    <div className='server-icon'>
+                        <div className='server-text'>
+                            {project.name[0]}
+                        </div>
+                    </div>
+                </div>))}
             </div>
         </>
     )

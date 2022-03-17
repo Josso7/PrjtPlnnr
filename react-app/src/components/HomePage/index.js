@@ -5,6 +5,8 @@ import { getProjectsById } from '../../store/project'
 
 function HomePage() {
 
+    const channels = useSelector(state => state?.channels?.entries)
+ 
     return (
         <>
         <div className='homepage-wrapper'>

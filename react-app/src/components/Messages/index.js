@@ -4,11 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getProjectsById } from '../../store/project'
 import { getChannelsById } from '../../store/channel';
+import { getMessagesById } from '../../store/message';
 
-function Messages () {
+function Messages ({ channelId }) {
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        
+        dispatch(getMessagesById(channelId));
     },[])
 
 

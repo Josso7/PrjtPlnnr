@@ -1,6 +1,7 @@
+from cmath import log
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Project, db
+from app.models import Project, Message, db
 
 project_routes = Blueprint('projects', __name__)
 
@@ -24,3 +25,10 @@ def get_projects_by_user(user_id):
 
     projects = Project.query.filter(user_id == Project.user_id).all()
     return { 'projects' : [project.to_dict() for project in projects]}
+
+@project_routes.route('/channels/<int:channel_id>/messages')
+@login_required
+def get_messages_by_channel(channel_id):
+
+    messages = Message.query.filter(Message.channel_id == channel_id).all()
+    return { 'messages' : [message.to_dict() for message in messages]}

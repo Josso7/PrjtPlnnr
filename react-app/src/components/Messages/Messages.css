@@ -1,6 +1,8 @@
 .messages-container {
-    margin-left: 500px;
     border: 1px solid black;
-    width: 30%;
-    height: 100%;
+    width: 73%;
+    /* height: 80%; */
+    position: absolute;
+    left: 312px;
+    top: 100px;
 }

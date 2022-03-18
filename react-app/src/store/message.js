@@ -29,8 +29,8 @@ export const getMessagesById = (channelId) => async dispatch => {
 
     if(response.ok){
         const messages = await response.json();
-        console.log(channelId);
-        console.log(messages);
+        // console.log(channelId);
+        // console.log(messages);
         dispatch(loadChannelMessages(messages))
     };
 };

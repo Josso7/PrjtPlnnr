@@ -31,14 +31,14 @@ function HomePage() {
     },[activeChannel])
 
     useEffect(() => {
-        console.log(activeProject)
+        // console.log(activeProject)
         if(projects) setActiveProject(projects[0].id)
-        console.log(activeProject)
+        // console.log(activeProject)
     },[projects])
 
     const handleActiveProject = (projectId) => {
-        setActiveProject(projectId);
-        console.log(activeProject);
+        setActiveProject(projectId)
+        // console.log(activeProject);
     };
 
     const handleActiveChannel = (channelId) => {
@@ -52,7 +52,7 @@ function HomePage() {
         handleActiveProject={handleActiveProject}
         />
         <ProjectChannels activeProject={activeProject} handleActiveChannel={handleActiveChannel}/>
-        <Messages channelId={activeChannel}/>
+        <Messages key={activeChannel} activeChannel={activeChannel}/>
         </>
     )
 };

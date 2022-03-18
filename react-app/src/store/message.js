@@ -19,7 +19,7 @@ export const postMessages = (channelId, userId, content) => async dispatch => {
     });
 
     if(response.ok) {
-        dispatch(getMessagesById(channelId));
+        // dispatch(getMessagesById(channelId));
         return 'message saved to database';
     };
 };

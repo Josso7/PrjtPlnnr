@@ -33,6 +33,7 @@ function Messages ({ activeChannel }) {
     const postMessage = async (e) => {
         e.preventDefault();
         await dispatch(postMessages(activeChannel, user.id, chatInput))
+        setChatInput('')
     }
 
 

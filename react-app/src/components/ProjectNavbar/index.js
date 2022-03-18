@@ -20,7 +20,7 @@ function ProjectNavbar({handleActiveProject}){
 
     const handleClick = (projectId) => {
         setActiveProject(projectId);
-        console.log(activeProject);
+        // console.log(activeProject);
     }
 
     return (

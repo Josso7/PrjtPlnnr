@@ -5,8 +5,8 @@ const loadChannelMessages = (messages) => ({
     messages
 });
 
-export const postMessages = (projectId, channelId, userId, content) => async dispatch => {
-    const response = await fetch(`/api/projects/${projectId}/channels/${channelId}/messages`, {
+export const postMessages = (channelId, userId, content) => async dispatch => {
+    const response = await fetch(`/api/projects/channels/${channelId}/messages`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ export const postMessages = (projectId, channelId, userId, content) => async dis
     });
 
     if(response.ok) {
-        dispatch(getMessagesById(channelId));
+        // dispatch(getMessagesById(channelId));
         return 'message saved to database';
     };
 };
@@ -29,8 +29,8 @@ export const getMessagesById = (channelId) => async dispatch => {
 
     if(response.ok){
         const messages = await response.json();
-        console.log(channelId);
-        console.log(messages);
+        // console.log(channelId);
+        // console.log(messages);
         dispatch(loadChannelMessages(messages))
     };
 };

@@ -12,6 +12,7 @@ function HomePage() {
     const channels = useSelector(state => state?.channels?.entries);
     const user = useSelector(state => state?.session?.user);
     const [activeProject, setActiveProject] = useState('');
+    const [activeChannel, setActiveChannel] = useState('');
 
     useEffect(() => {
         dispatch(getProjectsById(user.id))
@@ -19,9 +20,14 @@ function HomePage() {
     },[])
 
     const handleActiveProject = (projectId) => {
-        setActiveProject(projectId)
+        setActiveProject(projectId);
         console.log(activeProject);
     };
+
+    const handleActiveChannel = (channelId) => {
+        setActiveChannel(channelId);
+        console.log(activeChannel);
+    }
 
     return (
         <>

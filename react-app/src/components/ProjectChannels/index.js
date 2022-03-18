@@ -4,17 +4,28 @@ import { useEffect, useState } from 'react';
 import { getProjectsById } from '../../store/project'
 import { getChannelsById } from '../../store/channel';
 
-function ProjectChannels({ activeProject }){
+function ProjectChannels({ activeProject, handleActiveChannel }){
 
     const dispatch = useDispatch();
     const projects = useSelector(state => state?.projects?.entries);
     const channels = useSelector(state => state?.channels?.entries);
     const user = useSelector(state => state?.session?.user);
+    const [activeChannel, setActiveChannel] = useState('');
 
     useEffect(() => {
         dispatch(getProjectsById(user.id))
-        // dispatch(getChannelsById(activeProject))
+        dispatch(getChannelsById(activeProject))
     },[])
+
+    useEffect(() => {
+        handleActiveChannel(activeChannel);
+    },[activeChannel])
+
+    const handleClick = (e, channelId) => {
+        e.preventDefault();
+        setActiveChannel(channelId);
+        console.log(channelId);
+    }
 
     return(
         <>
@@ -45,7 +56,8 @@ function ProjectChannels({ activeProject }){
                 {channels && channels.map(channel => (
                 <div
                 key={channel.id}
-                className='single-channel-container'>
+                className='single-channel-container'
+                onClick={(e) => handleClick(e, channel.id)}>
 
                     <div>
                         #{channel.name}

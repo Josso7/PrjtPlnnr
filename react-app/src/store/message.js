@@ -19,7 +19,7 @@ export const postMessages = (projectId, channelId, userId, content) => async dis
     });
 
     if(response.ok) {
-        dispatch(getMessagesById(serverId, channelId));
+        dispatch(getMessagesById(channelId));
         return 'message saved to database';
     };
 };
@@ -29,6 +29,8 @@ export const getMessagesById = (channelId) => async dispatch => {
 
     if(response.ok){
         const messages = await response.json();
+        console.log(channelId);
+        console.log(messages);
         dispatch(loadChannelMessages(messages))
     };
 };

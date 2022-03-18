@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getProjectsById } from '../../store/project'
 import { getChannelsById } from '../../store/channel';
+import { getMessagesById } from '../../store/message';
 import ProjectNavbar from '../ProjectNavbar';
 import ProjectChannels from '../ProjectChannels';
+import Messages from '../Messages';
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -19,9 +21,14 @@ function HomePage() {
     },[])
 
     useEffect(() => {
-        console.log(activeProject)
+        // console.log(activeProject)
         if (activeProject) dispatch(getChannelsById(activeProject))
     },[activeProject])
+
+    useEffect(() => {
+        // console.log(activeChannel)
+        if (activeChannel) dispatch(getMessagesById(activeChannel))
+    },[activeChannel])
 
     useEffect(() => {
         console.log(activeProject)
@@ -35,16 +42,17 @@ function HomePage() {
     };
 
     const handleActiveChannel = (channelId) => {
-        setActiveChannel(channelId);
-        console.log(activeChannel);
-    }
+        setActiveChannel(channelId)
+        // console.log(activeChannel);
+    };
 
     return (
         <>
         <ProjectNavbar
         handleActiveProject={handleActiveProject}
         />
-        <ProjectChannels activeProject={activeProject}/>
+        <ProjectChannels activeProject={activeProject} handleActiveChannel={handleActiveChannel}/>
+        <Messages channelId={activeChannel}/>
         </>
     )
 };

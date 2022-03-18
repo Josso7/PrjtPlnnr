@@ -30,9 +30,9 @@ function Messages ({ activeChannel }) {
         }
     },[channels])
 
-    const postMessage = (e) => {
+    const postMessage = async (e) => {
         e.preventDefault();
-        dispatch(postMessages(activeChannel, user.id, chatInput))
+        await dispatch(postMessages(activeChannel, user.id, chatInput))
     }
 
 
@@ -45,13 +45,17 @@ function Messages ({ activeChannel }) {
                     </div>))}
 
                 <div className='chat-container'>
-                    {messages && channels && <input className='chat-input'
+                    {messages && channels && <form
+                    className='chat-form'
+                    onSubmit={postMessage}>
+                    <input className='chat-input'
                     type='text'
                     value={chatInput}
-                    onSubmit={(e) => postMessage(e)}
+                    // onSubmit={(e) => postMessage(e)}
                     onChange={e => setChatInput(e.target.value)}
                     placeholder={channels && activeChannel && `Message #${channels.find(channel => channel.id == activeChannel).name}`}>
-                    </input>}
+                    </input>
+                    </form>}
                 </div>
             </div>
         </>

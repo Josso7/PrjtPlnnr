@@ -5,8 +5,8 @@ const loadChannelMessages = (messages) => ({
     messages
 });
 
-export const postMessages = (projectId, channelId, userId, content) => async dispatch => {
-    const response = await fetch(`/api/projects/${projectId}/channels/${channelId}/messages`, {
+export const postMessages = (channelId, userId, content) => async dispatch => {
+    const response = await fetch(`/api/projects/channels/${channelId}/messages`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -13,6 +13,8 @@ function Messages ({ activeChannel }) {
     const channels = useSelector(state => state?.channels?.entries);
     const user = useSelector(state => state?.session?.user);
     const [chatInput, setChatInput] = useState('');
+    const [socketMessages, setSocketMessages] = useState([]);
+
     let channel;
 
     if(user) console.log(user);
@@ -36,6 +38,41 @@ function Messages ({ activeChannel }) {
         setChatInput('')
     }
 
+    useEffect(() => {
+        socket = io();
+
+        dispatch(joinChatRoom(roomId));
+
+        socket.emit('join', { 'username': user.username, 'room': roomId });
+        socket.emit('join_room', { 'username': user.username, 'room': roomId })
+        socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has joined the room.`, room: roomId });
+
+        socket.on('chat', (chat) => {
+            setSocketMessages(messages => [...messages, chat]);
+            scroll();
+        });
+
+        socket.on('join_room', (user) => {
+            dispatch(getRooms(groupId));
+        });
+
+        socket.on('leave_room', (user) => {
+            dispatch(getRooms(groupId));
+        });
+
+
+        return (() => {
+            dispatch(leaveChatRoom(roomId));
+            socket.emit('leave', { 'username': user.username, 'room': roomId });
+            socket.emit('leave_room', { 'username': user.username, 'room': roomId })
+            socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has left the room.`, room: roomId });
+
+            socket.disconnect();
+        })
+    }, [roomId, user.username, dispatch, groupId]);
+
+
+
 
     return (
         <>
@@ -44,7 +81,7 @@ function Messages ({ activeChannel }) {
                     <div className='single-message-container'>
                         {message.content}
                     </div>))}
-
+                {}
                 <div className='chat-container'>
                     {messages && channels && <form
                     className='chat-form'

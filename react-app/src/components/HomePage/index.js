@@ -17,8 +17,24 @@ function HomePage() {
     const [activeChannel, setActiveChannel] = useState('');
 
     useEffect(() => {
-        dispatch(getProjectsById(user.id))
-    },[])
+        if(user)dispatch(getProjectsById(user.id))
+    },[user])
+
+    useEffect(() => {
+        // console.log(activeProject)
+        if (activeProject) dispatch(getChannelsById(activeProject))
+    },[activeProject])
+
+    useEffect(() => {
+        // console.log(activeChannel)
+        if (activeChannel) dispatch(getMessagesById(activeChannel))
+    },[activeChannel])
+
+    useEffect(() => {
+        // console.log(activeProject)
+        if(projects) setActiveProject(projects[0].id)
+        // console.log(activeProject)
+    },[projects])
 
     useEffect(() => {
         // console.log(activeProject)

@@ -13,9 +13,19 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
     const [activeChannel, setActiveChannel] = useState('');
 
     useEffect(() => {
-        dispatch(getProjectsById(user.id))
+        if(user)dispatch(getProjectsById(user.id))
         dispatch(getChannelsById(activeProject))
-    },[])
+    },[user])
+
+    useEffect(() => {
+        handleActiveChannel(activeChannel);
+    },[activeChannel])
+
+    const handleClick = (e, channelId) => {
+        e.preventDefault();
+        setActiveChannel(channelId);
+        // console.log(channelId);
+    }
 
     useEffect(() => {
         handleActiveChannel(activeChannel);
@@ -31,7 +41,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
         <>
             <div className='channels-container'>
                 <div className='username-text'>
-                    {user.username}
+                    {user && user.username}
                 </div>
                 <div class="dashboard">
                 <div className='progress-bar-wrapper'>

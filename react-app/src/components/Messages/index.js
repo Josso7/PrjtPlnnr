@@ -21,14 +21,14 @@ function Messages ({ activeChannel }) {
 
     useEffect(() => {
         dispatch(getMessagesById(activeChannel));
-        // console.log(activeChannel)
+
     },[activeChannel])
 
     useEffect(() => {
         if(channels && activeChannel) {
-            // console.log(activeChannel)
+
             channel = channels?.find(element => element.id == activeChannel);
-            // console.log(channel.name);
+
         }
     },[channels])
 

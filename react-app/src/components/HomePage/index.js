@@ -21,45 +21,45 @@ function HomePage() {
     },[user])
 
     useEffect(() => {
-        // console.log(activeProject)
+
         if (activeProject) dispatch(getChannelsById(activeProject))
     },[activeProject])
 
     useEffect(() => {
-        // console.log(activeChannel)
+
         if (activeChannel) dispatch(getMessagesById(activeChannel))
     },[activeChannel])
 
     useEffect(() => {
-        // console.log(activeProject)
+
         if(projects) setActiveProject(projects[0].id)
-        // console.log(activeProject)
+
     },[projects])
 
     useEffect(() => {
-        // console.log(activeProject)
+
         if (activeProject) dispatch(getChannelsById(activeProject))
     },[activeProject])
 
     useEffect(() => {
-        // console.log(activeChannel)
+
         if (activeChannel) dispatch(getMessagesById(activeChannel))
     },[activeChannel])
 
     useEffect(() => {
-        // console.log(activeProject)
+
         if(projects) setActiveProject(projects[0].id)
-        // console.log(activeProject)
+
     },[projects])
 
     const handleActiveProject = (projectId) => {
         setActiveProject(projectId)
-        // console.log(activeProject);
+
     };
 
     const handleActiveChannel = (channelId) => {
         setActiveChannel(channelId)
-        // console.log(activeChannel);
+
     };
 
     return (

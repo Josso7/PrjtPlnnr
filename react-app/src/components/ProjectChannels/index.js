@@ -31,12 +31,6 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
         handleActiveChannel(activeChannel);
     },[activeChannel])
 
-    const handleClick = (e, channelId) => {
-        e.preventDefault();
-        setActiveChannel(channelId);
-        // console.log(channelId);
-    }
-
     return(
         <>
             <div className='channels-container'>

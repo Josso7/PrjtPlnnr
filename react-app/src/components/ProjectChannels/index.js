@@ -24,7 +24,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
     const handleClick = (e, channelId) => {
         e.preventDefault();
         setActiveChannel(channelId);
-        // console.log(channelId);
+
     }
 
     useEffect(() => {

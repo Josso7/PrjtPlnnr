@@ -5,6 +5,7 @@ import { getProjectsById } from '../../store/project';
 import { getChannelsById } from '../../store/channel';
 import { getMessagesById } from '../../store/message';
 import { postMessages } from '../../store/message';
+import { io } from 'socket.io-client';
 
 function Messages ({ activeChannel }) {
 
@@ -16,6 +17,7 @@ function Messages ({ activeChannel }) {
     const [socketMessages, setSocketMessages] = useState([]);
 
     let channel;
+    let socket;
 
     if(user) console.log(user);
 
@@ -41,35 +43,35 @@ function Messages ({ activeChannel }) {
     useEffect(() => {
         socket = io();
 
-        dispatch(joinChatRoom(roomId));
+        // dispatch(joinChatRoom(activeChannel));
 
-        socket.emit('join', { 'username': user.username, 'room': roomId });
-        socket.emit('join_room', { 'username': user.username, 'room': roomId })
-        socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has joined the room.`, room: roomId });
+        socket.emit('join', { 'username': user.username, 'room': activeChannel });
+        socket.emit('join_room', { 'username': user.username, 'room': activeChannel })
+        socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has joined the room.`, room: activeChannel });
 
         socket.on('chat', (chat) => {
             setSocketMessages(messages => [...messages, chat]);
-            scroll();
+            // scroll();
         });
 
         socket.on('join_room', (user) => {
-            dispatch(getRooms(groupId));
+            // dispatch(getRooms(groupId));
         });
 
         socket.on('leave_room', (user) => {
-            dispatch(getRooms(groupId));
+            // dispatch(  getRooms(groupId));
         });
 
 
         return (() => {
-            dispatch(leaveChatRoom(roomId));
-            socket.emit('leave', { 'username': user.username, 'room': roomId });
-            socket.emit('leave_room', { 'username': user.username, 'room': roomId })
-            socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has left the room.`, room: roomId });
+            // dispatch(leaveChatRoom(activeChannel));
+            socket.emit('leave', { 'username': user.username, 'room': activeChannel });
+            socket.emit('leave_room', { 'username': user.username, 'room': activeChannel })
+            socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has left the room.`, room: activeChannel });
 
             socket.disconnect();
         })
-    }, [roomId, user.username, dispatch, groupId]);
+    }, [activeChannel, user.username, dispatch]);
 
 
 

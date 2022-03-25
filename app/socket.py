@@ -24,13 +24,6 @@ def handle_chat(data):
     room = data['room']
     emit("chat", data, broadcast=True, to=room)
 
-
-# handle whiteboard drawings
-@socketio.on("drawing")
-def handle_draw(data):
-    emit("drawing", data, broadcast=True)
-
-
 # handle joining chat rooms
 @socketio.on('join')
 def on_join(data):
@@ -49,16 +42,16 @@ def on_leave(data):
     send(username + ' has left the room.', to=room)
 
 
-# handle live update of login
-@socketio.on('login')
-def on_active(data):
-    emit('login', data, broadcast=True)
+# # handle live update of login
+# @socketio.on('login')
+# def on_active(data):
+#     emit('login', data, broadcast=True)
 
 
-# hande live update of logout
-@socketio.on('logout')
-def on_inactive(data):
-    emit('logout', data, broadcast=True)
+# # hande live update of logout
+# @socketio.on('logout')
+# def on_inactive(data):
+#     emit('logout', data, broadcast=True)
 
 
 @socketio.on('join_room')

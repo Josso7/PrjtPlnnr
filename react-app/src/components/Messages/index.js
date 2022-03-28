@@ -54,13 +54,13 @@ function Messages ({ activeChannel }) {
             // scroll();
         });
 
-        socket.on('join_room', (user) => {
-            // dispatch(getRooms(groupId));
-        });
+        // socket.on('join_room', (user) => {
+        //     // dispatch(getRooms(groupId));
+        // });
 
-        socket.on('leave_room', (user) => {
-            // dispatch(  getRooms(groupId));
-        });
+        // socket.on('leave_room', (user) => {
+        //     // dispatch(getRooms(groupId));
+        // });
 
 
         return (() => {
@@ -83,9 +83,13 @@ function Messages ({ activeChannel }) {
                     <div className='single-message-container'>
                         {message.content}
                     </div>))}
-                {}
+                {activeChannel && socketMessages && socketMessages.map(message => (
+                    <div className='single-socket-message'>
+                        {message.msg}
+                    </div>
+                ))}
                 <div className='chat-container'>
-                    {messages && channels && <form
+                    {activeChannel && messages && channels && <form
                     className='chat-form'
                     onSubmit={postMessage}>
                     <input className='chat-input'

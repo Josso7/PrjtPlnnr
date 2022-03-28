@@ -26,7 +26,6 @@ function HomePage() {
     },[activeProject])
 
     useEffect(() => {
-
         if (activeChannel) dispatch(getMessagesById(activeChannel))
     },[activeChannel])
 
@@ -37,7 +36,7 @@ function HomePage() {
     },[projects])
 
     useEffect(() => {
-
+        setActiveChannel('');
         if (activeProject) dispatch(getChannelsById(activeProject))
     },[activeProject])
 

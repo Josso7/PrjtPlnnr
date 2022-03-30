@@ -32,7 +32,6 @@ def on_join(data):
     join_room(room)
     send(username + ' has entered the room.', to=room)
 
-
 # handle leaving chat rooms
 @socketio.on('leave')
 def on_leave(data):
@@ -42,16 +41,16 @@ def on_leave(data):
     send(username + ' has left the room.', to=room)
 
 
-# # handle live update of login
-# @socketio.on('login')
-# def on_active(data):
-#     emit('login', data, broadcast=True)
+# handle live update of login
+@socketio.on('login')
+def on_active(data):
+    emit('login', data, broadcast=True)
 
 
-# # hande live update of logout
-# @socketio.on('logout')
-# def on_inactive(data):
-#     emit('logout', data, broadcast=True)
+# hande live update of logout
+@socketio.on('logout')
+def on_inactive(data):
+    emit('logout', data, broadcast=True)
 
 
 @socketio.on('join_room')

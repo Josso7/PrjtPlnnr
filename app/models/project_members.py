@@ -13,7 +13,7 @@ class ProjectMembers(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            'name': self.name,
+            'project_id': self.project_id,
             'created_at_date': self.created_at_date,
             'updated_at_date': self.updated_at_date,
-        }
+    }

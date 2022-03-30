@@ -54,7 +54,7 @@ function Messages ({ activeChannel }) {
             socket.disconnect();
         })
 
-    },[activeChannel, user, channels, dispatch])
+    },[activeChannel, user, dispatch])
 
     useEffect(() => {
         dispatch(getMessagesById(activeChannel));
@@ -76,43 +76,6 @@ function Messages ({ activeChannel }) {
         dispatch(postMessages(activeChannel, user.id, chatInput))
         setChatInput('')
     }
-
-    // useEffect(() => {
-    //     // socket = io();
-    //     // console.log('hello');
-    //     // dispatch(joinChatRoom(activeChannel));
-
-    //     socket.emit('join', { 'username': user.username, 'room': activeChannel });
-    //     socket.emit('join_room', { 'username': user.username, 'room': activeChannel })
-    //     socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has joined the room.`, room: activeChannel });
-
-    //     socket.on('chat', (chat) => {
-    //         setSocketMessages(socketMessages => [...socketMessages, chat]);
-    //         console.log(socketMessages)
-    //         // scroll();
-    //     });
-
-    //     // socket.on('join_room', (user) => {
-    //     //     // dispatch(getRooms(groupId));
-    //     // });
-
-    //     // socket.on('leave_room', (user) => {
-    //     //     // dispatch(getRooms(groupId));
-    //     // });
-
-
-    //     return (() => {
-    //         // dispatch(leaveChatRoom(activeChannel));
-    //         socket.emit('leave', { 'username': user.username, 'room': activeChannel });
-    //         socket.emit('leave_room', { 'username': user.username, 'room': activeChannel })
-    //         socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has left the room.`, room: activeChannel });
-
-    //         // socket.disconnect();
-    //     })
-    // }, [activeChannel, user, channels, dispatch]);
-
-
-
 
     return (
         <>

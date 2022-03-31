@@ -1,7 +1,7 @@
 from cmath import log
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Project, Message, db
+from app.models import Project, Message, ProjectMembers, db
 from datetime import datetime
 
 project_routes = Blueprint('projects', __name__)
@@ -52,3 +52,10 @@ def post_messages(channel_id):
     db.session.commit()
 
     return {}
+
+@project_routes.route('/members/<int:user_id>', methods=['GET'])
+@login_required
+def get_projects_by_member(user_id):
+
+    members = ProjectMembers.query.filter(ProjectMembers.user_id == user_id).all()
+    return { 'project_members': [member.to_dict() for member in members]}

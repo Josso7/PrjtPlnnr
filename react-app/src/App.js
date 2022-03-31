@@ -40,9 +40,9 @@ function App() {
         <Route path='/' exact={true}>
           <SplashPage/>
         </Route>
-        <Route path='/home' exact={true}>
+        <ProtectedRoute path='/home' exact={true}>
           <HomePage/>
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );

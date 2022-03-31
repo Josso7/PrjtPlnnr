@@ -4,6 +4,7 @@ from .projects import seed_projects, undo_projects
 from .messages import seed_messages, undo_messages
 from .channels import seed_channels, undo_channels
 from .todo_items import seed_todo_items, undo_todo_items
+from .project_members import seed_project_members, undo_project_members
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -18,6 +19,7 @@ def seed():
     seed_messages()
     seed_channels()
     seed_todo_items()
+    seed_project_members()
     # Add other seed functions here
 
 
@@ -29,4 +31,5 @@ def undo():
     undo_messages()
     undo_channels()
     undo_todo_items()
+    undo_project_members()
     # Add other undo functions here

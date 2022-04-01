@@ -58,4 +58,6 @@ def post_messages(channel_id):
 def get_projects_by_member(user_id):
 
     members = ProjectMembers.query.filter(ProjectMembers.user_id == user_id).all()
-    return { 'project_members': [member.to_dict() for member in members]}
+    projects = Project.query.filter(Project.id.in_(member.project_id for member in members))
+    return { 'project_members': [project.to_dict() for project in projects]}
+    # return { 'project_members': [member.to_dict() for member in members]}

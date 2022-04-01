@@ -43,7 +43,7 @@ function ProjectNavbar({handleActiveProject}){
                 <div className='project-planner-logo'>
                     <span className='prjct-text'>Prjct </span><span className='plnnr-text'>Plnnr</span>
                 </div>
-                {projects && projects.map(project => (<div
+                {joinedProjects && joinedProjects.map(project => (<div
                 key={project.id}
                 onClick={(e) => handleClick(project.id)}
                 className='single-project-container'>

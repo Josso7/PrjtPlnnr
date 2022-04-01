@@ -7,6 +7,8 @@ import { getMessagesById } from '../../store/message';
 import { postMessages } from '../../store/message';
 import { io } from 'socket.io-client';
 
+let socket;
+
 function Messages ({ activeChannel }) {
 
     const dispatch = useDispatch();
@@ -17,40 +19,20 @@ function Messages ({ activeChannel }) {
     const [socketMessages, setSocketMessages] = useState([]);
 
     let channel;
-    let socket;
-
-    if(user) console.log(user);
-
-    useEffect(() => {
-        dispatch(getMessagesById(activeChannel));
-
-    },[activeChannel])
-
-    useEffect(() => {
-        if(channels && activeChannel) {
-
-            channel = channels?.find(element => element.id == activeChannel);
-
-        }
-    },[channels])
-
-    const postMessage = async (e) => {
-        e.preventDefault();
-        await dispatch(postMessages(activeChannel, user.id, chatInput))
-        setChatInput('')
-    }
 
     useEffect(() => {
         socket = io();
-
-        // dispatch(joinChatRoom(activeChannel));
+        console.log(socket);
 
         socket.emit('join', { 'username': user.username, 'room': activeChannel });
         socket.emit('join_room', { 'username': user.username, 'room': activeChannel })
         socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has joined the room.`, room: activeChannel });
 
         socket.on('chat', (chat) => {
-            setSocketMessages(messages => [...messages, chat]);
+            console.log('chat event emitted')
+            console.log(chat);
+            setSocketMessages(socketMessages => [...socketMessages, chat]);
+            // console.log(socketMessages)
             // scroll();
         });
 
@@ -71,10 +53,29 @@ function Messages ({ activeChannel }) {
 
             socket.disconnect();
         })
-    }, [activeChannel, user.username, dispatch]);
 
+    },[activeChannel, user, dispatch])
 
+    useEffect(() => {
+        dispatch(getMessagesById(activeChannel));
 
+    },[activeChannel])
+
+    useEffect(() => {
+        if(channels && activeChannel) {
+
+            channel = channels?.find(element => element.id == activeChannel);
+
+        }
+    },[channels])
+
+    const postMessage = (e) => {
+        e.preventDefault();
+        console.log('hello from postMessage');
+        socket.emit('chat', { user: user.username, msg: chatInput, room: activeChannel, created_at: (new Date()).toLocaleTimeString() });
+        dispatch(postMessages(activeChannel, user.id, chatInput))
+        setChatInput('')
+    }
 
     return (
         <>
@@ -90,6 +91,7 @@ function Messages ({ activeChannel }) {
                 ))}
                 <div className='chat-container'>
                     {activeChannel && messages && channels && <form
+                    autoComplete="off"
                     className='chat-form'
                     onSubmit={postMessage}>
                     <input className='chat-input'

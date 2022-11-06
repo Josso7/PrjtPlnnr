@@ -3,6 +3,27 @@
     width: 73%;
     height: 90.5%;
     position: absolute;
+    display: relative;
     left: 312px;
     top: 100px;
+    font-family: 'Barlow';
+    font-size: 16px;
+}
+
+.chat-input {
+    border: 1px solid #5ec57e;
+    border-radius: 10px;
+    background-color: #dcf4ce;
+    font-family: 'Barlow';
+    font-size: 16px;
+    padding: 5px 10px;
+    width: 95%;
+    box-sizing: border-box;
+    margin-left: 2.5%;
+    position: absolute;
+    bottom: 5%;
+}
+
+.chat-input:focus {
+    outline: none;
 }

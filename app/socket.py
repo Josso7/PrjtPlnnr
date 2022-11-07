@@ -1,5 +1,7 @@
 import os
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
+from .models.db import db
+from .models import OnlineUsers
 
 socketio = SocketIO()
 
@@ -44,12 +46,21 @@ def on_leave(data):
 # handle live update of login
 @socketio.on('login')
 def on_active(data):
+    user = OnlineUsers(
+        user_id = data['id']
+    )
+    db.session.add(user)
+    db.session.commit()
     emit('login', data, broadcast=True)
 
 
 # hande live update of logout
 @socketio.on('logout')
 def on_inactive(data):
+    print('------------------------------------------------------------------------', data)
+    user = db.session.query(OnlineUsers).filter(OnlineUsers.user_id == data['id']).delete()
+    print('---------------------------------', user)
+    db.session.commit()
     emit('logout', data, broadcast=True)
 
 

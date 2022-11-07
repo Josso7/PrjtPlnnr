@@ -5,3 +5,4 @@ from .message import Message
 from .project import Project
 from .todo_item import Todo_Item
 from .project_members import ProjectMembers
+from .online_users import OnlineUsers

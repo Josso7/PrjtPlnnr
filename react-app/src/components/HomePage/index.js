@@ -21,7 +21,17 @@ function HomePage() {
     const [activeProject, setActiveProject] = useState('');
     const [activeChannel, setActiveChannel] = useState('');
 
+    const disconnectUser = () => {
+        socket.emit('logout', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': false })
+    }
 
+    useEffect(() => {
+        window.addEventListener('beforeunload', disconnectUser)
+
+        return () => {
+            window.removeEventListener('beforeunload', disconnectUser);
+        }
+    }, [])
 
     useEffect(() => {
         if(user)dispatch(getProjectsById(user.id))
@@ -75,11 +85,11 @@ function HomePage() {
         socket.emit('login', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': true })
         console.log('connecting', user.username)
         socket.on('login', (status) => {
-            // dispatch(getGroups());
+
         });
 
         socket.on('logout', (status) => {
-            // dispatch(getGroups());
+
         })
 
         return (() => {

@@ -2,6 +2,7 @@ import os
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from .models.db import db
 from .models import OnlineUsers
+import socketio
 
 socketio = SocketIO(logger=False, engineio_logger=False)
 

@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
       case LOADUSERS: {
         return {
             ...state,
-            entries: [...action.onlineUsers]
+            entries: [...action.onlineUsers.online_users]
         };
       };
       default: return state;

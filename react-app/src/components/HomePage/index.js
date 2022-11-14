@@ -5,10 +5,12 @@ import { io } from 'socket.io-client';
 import { getProjectsById } from '../../store/project'
 import { getChannelsById } from '../../store/channel';
 import { getMessagesById } from '../../store/message';
+import { getUsers } from '../../store/onlineUsers';
 import ProjectNavbar from '../ProjectNavbar';
 import ProjectChannels from '../ProjectChannels';
 import Messages from '../Messages';
 import { useHistory } from 'react-router-dom';
+import OnlineUsers from '../OnlineUsers';
 
 let socket;
 
@@ -18,19 +20,21 @@ function HomePage() {
     const projects = useSelector(state => state?.projects?.entries);
     const channels = useSelector(state => state?.channels?.entries);
     const user = useSelector(state => state?.session?.user);
+    const onlineUsers = useSelector(state => state?.onlineUsers?.entries)
     const [activeProject, setActiveProject] = useState('');
     const [activeChannel, setActiveChannel] = useState('');
 
     const disconnectUser = () => {
+        // e.returnValue = 'Success'
         socket.emit('logout', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': false })
     }
 
     useEffect(() => {
-        window.addEventListener('beforeunload', disconnectUser)
-
-        return () => {
-            window.removeEventListener('beforeunload', disconnectUser);
-        }
+        // window.addEventListener('beforeunload', (e) => disconnectUser(e))
+        window.onbeforeunload = disconnectUser
+        // return () => {
+            // window.removeEventListener('beforeunload', (e) => disconnectUser(e));
+        // }
     }, [])
 
     useEffect(() => {
@@ -39,29 +43,13 @@ function HomePage() {
     },[user])
 
     useEffect(() => {
-
-        if (activeProject) dispatch(getChannelsById(activeProject))
-    },[activeProject])
-
-    useEffect(() => {
         if (activeChannel) dispatch(getMessagesById(activeChannel))
     },[activeChannel])
-
-    useEffect(() => {
-
-        if(projects) setActiveProject(projects[0].id)
-
-    },[projects])
 
     useEffect(() => {
         setActiveChannel('');
         if (activeProject) dispatch(getChannelsById(activeProject))
     },[activeProject])
-
-    useEffect(() => {
-
-        if (activeChannel) dispatch(getMessagesById(activeChannel))
-    },[activeChannel])
 
     useEffect(() => {
 
@@ -81,12 +69,12 @@ function HomePage() {
 
     useEffect(() => {
         socket = io();
-
+        socket.on('login', (status) => {
+            console.log('LOGGED INNNNNNNNNNNNNNNNNNNN')
+            dispatch(getUsers(activeProject))
+        });
         socket.emit('login', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': true })
         console.log('connecting', user.username)
-        socket.on('login', (status) => {
-
-        });
 
         socket.on('logout', (status) => {
 
@@ -97,7 +85,7 @@ function HomePage() {
             socket.emit('logout', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': false })
             socket.disconnect();
         });
-    }, [dispatch, user.id, user.username]);
+    }, [dispatch, user.id, user.username, activeProject]);
 
     return (
         <>
@@ -106,6 +94,7 @@ function HomePage() {
         />
         <ProjectChannels activeProject={activeProject} handleActiveChannel={handleActiveChannel}/>
         <Messages key={activeChannel} activeChannel={activeChannel}/>
+        <OnlineUsers activeProject={activeProject} onlineUsers={onlineUsers}/>
         </>
     )
 };

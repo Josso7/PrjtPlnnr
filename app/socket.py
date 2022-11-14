@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from .models.db import db
 from .models import OnlineUsers
 
-socketio = SocketIO()
+socketio = SocketIO(logger=False, engineio_logger=False)
 
 # if os.environ.get("FLASK_ENV") == "production":
 #     origins = [
@@ -57,12 +57,9 @@ def on_active(data):
 # hande live update of logout
 @socketio.on('logout')
 def on_inactive(data):
-    print('------------------------------------------------------------------------', data)
     user = db.session.query(OnlineUsers).filter(OnlineUsers.user_id == data['id']).delete()
-    print('---------------------------------', user)
     db.session.commit()
     emit('logout', data, broadcast=True)
-
 
 @socketio.on('join_room')
 def on_join_room(data):

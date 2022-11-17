@@ -7,7 +7,7 @@ import { getChannelsById } from '../../store/channel';
 function ProjectChannels({ activeProject, handleActiveChannel }){
 
     const dispatch = useDispatch();
-    const projects = useSelector(state => state?.projects?.entries);
+    const joinedProjects = useSelector(state => state?.projects?.joinedProjects);
     const channels = useSelector(state => state?.channels?.entries);
     const user = useSelector(state => state?.session?.user);
     const [activeChannel, setActiveChannel] = useState('');
@@ -48,7 +48,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
                 <div className='selected-project-container'>
 
                     <div className='selected-project-text'>
-                        {projects && activeProject && projects?.find(project => project.id == activeProject).name}
+                        {joinedProjects && activeProject && joinedProjects?.find(project => project.id == activeProject).name}
                     </div>
 
                     <div className='add-channel-button'>

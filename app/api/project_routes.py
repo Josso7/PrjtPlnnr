@@ -1,7 +1,7 @@
 from cmath import log
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Project, Message, ProjectMembers, db
+from app.models import Project, Message, ProjectMembers, OnlineUsers, User, db
 from datetime import datetime
 
 project_routes = Blueprint('projects', __name__)
@@ -61,3 +61,14 @@ def get_projects_by_member(user_id):
     projects = Project.query.filter(Project.id.in_(member.project_id for member in members))
     return { 'project_members': [project.to_dict() for project in projects]}
     # return { 'project_members': [member.to_dict() for member in members]}
+
+@project_routes.route('/<int:project_id>/online')
+@login_required
+def get_online_users(project_id):
+    members = ProjectMembers.query.filter(ProjectMembers.project_id == project_id).all()
+    # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', [member.user_id for member in members])
+    online_users = OnlineUsers.query.filter(OnlineUsers.user_id.in_(member.user_id for member in members))
+    # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', [online_user.to_dict() for online_user in online_users])
+    users = User.query.filter(User.id.in_(online_user.user_id for online_user in online_users))
+    # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', [user.to_dict() for user in users])
+    return { 'online_users': [user.to_dict() for user in users]}

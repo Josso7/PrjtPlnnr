@@ -1,7 +1,7 @@
 import './ProjectNavbar.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getProjectsById, getProjectMembers } from '../../store/project';
+import { getProjectsById, getJoinedProjects } from '../../store/project';
 
 function ProjectNavbar({handleActiveProject}){
 
@@ -14,7 +14,7 @@ function ProjectNavbar({handleActiveProject}){
     let projectsToDisplay;
 
     useEffect(() => {
-        dispatch(getProjectMembers(user.id));
+        dispatch(getJoinedProjects(user.id));
     }, [])
 
     useEffect(() => {

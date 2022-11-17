@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 import { getProjectsById } from '../../store/project'
 import { getChannelsById } from '../../store/channel';
 import { getMessagesById } from '../../store/message';
-import { getUsers } from '../../store/onlineUsers';
+// import { getUsers } from '../../store/onlineUsers';
 import ProjectNavbar from '../ProjectNavbar';
 import ProjectChannels from '../ProjectChannels';
 import Messages from '../Messages';
@@ -24,17 +24,24 @@ function HomePage() {
     const [activeProject, setActiveProject] = useState('');
     const [activeChannel, setActiveChannel] = useState('');
 
-    const disconnectUser = () => {
-        // e.returnValue = 'Success'
-        socket.emit('logout', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': false })
-    }
+    // const disconnectUser = () => {
+    //     // e.returnValue = 'Success'
+    //     socket.emit('logout', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': false })
+    // }
 
     useEffect(() => {
         // window.addEventListener('beforeunload', (e) => disconnectUser(e))
-        window.onbeforeunload = disconnectUser
+        // window.onbeforeunload = disconnectUser
+        // socket = io();
+        // const interval = setInterval(() => {
+        //     socket.emit('heartbeat', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': true })
+        // }, 1000)
+
         // return () => {
-            // window.removeEventListener('beforeunload', (e) => disconnectUser(e));
+        //     // window.removeEventListener('beforeunload', (e) => disconnectUser(e));
+        //     clearInterval(interval)
         // }
+
     }, [])
 
     useEffect(() => {
@@ -69,33 +76,44 @@ function HomePage() {
 
     useEffect(() => {
         socket = io();
+
         socket.on('login', (status) => {
             console.log('LOGGED INNNNNNNNNNNNNNNNNNNN')
-            dispatch(getUsers(activeProject))
+            // dispatch(getUsers(activeProject))
         });
-        socket.emit('login', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': true })
-        console.log('connecting', user.username)
 
-        socket.on('logout', (status) => {
-
+        socket.on('user_inactive', (user) => {
+            console.log('USER_INACTIVE', user)
         })
+
+        socket.on('online_users', (data) => {
+            console.log('ONLINE USERS!!!!!!!!!!!!!!!!!', data)
+        });
+
+        socket.emit('login', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': true })
+        const interval = setInterval(() => {
+            socket.emit('heartbeat', { 'id': user.id })
+        }, 4500)
+
+        console.log('connecting', user.username)
 
         return (() => {
             console.log('disconnecting from group', user.username)
             socket.emit('logout', { 'id': user.id, 'username': user.username, 'room': 'project-planner', 'online': false })
+            clearInterval(interval)
             socket.disconnect();
         });
-    }, [dispatch, user.id, user.username, activeProject]);
+    }, [dispatch, user.id, user.username]);
 
     return (
-        <>
+        <div className='main-div'>
         <ProjectNavbar
         handleActiveProject={handleActiveProject}
         />
         <ProjectChannels activeProject={activeProject} handleActiveChannel={handleActiveChannel}/>
         <Messages key={activeChannel} activeChannel={activeChannel}/>
         <OnlineUsers activeProject={activeProject} onlineUsers={onlineUsers}/>
-        </>
+        </div>
     )
 };
 

@@ -38,7 +38,7 @@ export const getProjectsById = (user_id) => async dispatch => {
     };
 };
 
-export const getProjectMembers = (user_id) => async dispatch => {
+export const getJoinedProjects = (user_id) => async dispatch => {
     const response = await fetch(`/api/projects/members/${user_id}`)
 
     if(response.ok){

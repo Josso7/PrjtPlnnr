@@ -1,20 +1,18 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+
+from flask import Flask, redirect, render_template, request, session
 from flask_cors import CORS
+from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
-from flask_login import LoginManager
 
-from .models import db, User
-from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
-from .api.project_routes import project_routes
 from .api.channel_routes import channel_routes
-
-from .seeds import seed_commands
-
+from .api.project_routes import project_routes
+from .api.user_routes import user_routes
 from .config import Config
-
+from .models import User, db
+from .seeds import seed_commands
 from .socket import socketio
 
 app = Flask(__name__)

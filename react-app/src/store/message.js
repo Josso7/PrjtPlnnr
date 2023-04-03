@@ -1,9 +1,20 @@
 const GET_MESSAGES_BY_CHANNEL = '/project/GET_MESSAGES_BY_CHANNEL';
+const ADD_MESSAGE = '/project/ADD_MESSAGE';
+const RESET_MESSAGES = '/project/RESET'
 
 const loadChannelMessages = (messages) => ({
     type: GET_MESSAGES_BY_CHANNEL,
     messages
 });
+
+const postMessage = (message) => ({
+    type: ADD_MESSAGE,
+    message
+})
+
+export const resetMessages = () => ({
+    type: RESET_MESSAGES
+})
 
 export const postMessages = (channelId, userId, content) => async dispatch => {
     const response = await fetch(`/api/projects/channels/${channelId}/messages`, {
@@ -19,7 +30,8 @@ export const postMessages = (channelId, userId, content) => async dispatch => {
     });
 
     if(response.ok) {
-        // dispatch(getMessagesById(channelId));
+        const data = await response.json();
+        dispatch(postMessage(data));
         return 'message saved to database';
     };
 };
@@ -47,6 +59,15 @@ const reducer = (state = initialState, action) => {
             entries: [...action.messages.messages]
         };
       };
+      case ADD_MESSAGE: {
+        const newState = { ...state, ...state.entries };
+        newState.entries[action.message.id] = action.message
+        return newState;
+      }
+      case RESET_MESSAGES: {
+        const newState = {};
+        return newState;
+      }
       default: return state;
     };
   };

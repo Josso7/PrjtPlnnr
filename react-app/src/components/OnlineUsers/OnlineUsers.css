@@ -1,0 +1,39 @@
+.online-users-container {
+    background-color: #b8e28a;
+    min-width: 195px;
+    /* position: absolute; */
+    /* float: right; */
+    margin-left: auto;
+    height: 100%;
+    right: 0px;
+}
+
+.online-user-container {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.online-text {
+    font-family: 'Barlow';
+    font-size: 20px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.user-username {
+    margin-left: 15px;
+    font-family: 'Barlow';
+}
+
+.user-image {
+    width: 48px;
+    height: 48px;
+    border: 0px;
+    border-radius: 50%;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

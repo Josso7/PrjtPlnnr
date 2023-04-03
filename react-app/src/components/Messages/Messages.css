@@ -1,29 +1,257 @@
 .messages-container {
-    border: 1px solid black;
-    width: 73%;
-    height: 90.5%;
-    position: absolute;
-    display: relative;
-    left: 312px;
-    top: 100px;
+    /* border: 1px solid black; */
+    /* width: 85%; */
+    /* height: 90.5%; */
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-end; */
+    /* left: 312px; */
+    /* top: 100px; */
     font-family: 'Barlow';
     font-size: 16px;
+    color: #dcf4ce;
+    width: 100%;
+    /* margin: auto; */
+    height: 100%;
+    overflow-y: auto;
+
 }
 
 .chat-input {
+    color: #000000;
     border: 1px solid #5ec57e;
     border-radius: 10px;
-    background-color: #dcf4ce;
+    background-color: #b8e28a;
     font-family: 'Barlow';
     font-size: 16px;
+    line-height: 16px;
     padding: 5px 10px;
-    width: 95%;
+    width: calc(100vw - 530px);
+    min-width: 490px;
+    height: 30px;
     box-sizing: border-box;
-    margin-left: 2.5%;
-    position: absolute;
-    bottom: 5%;
+    resize: none;
 }
 
 .chat-input:focus {
     outline: none;
+}
+
+.chat-container {
+    /* display: flex; */
+    /* align-items: flex-end; */
+    /* margin-top: auto; */
+    width: 100%;
+}
+
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - 505px);
+    min-width: 500px;
+    height: 100%;
+    color: #dcf4ce;
+}
+
+
+.single-message-container {
+    width: 100%;
+    color: black;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+.chat-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.single-socket-message {
+    color: black;
+    word-wrap: break-word;
+    padding: 3px 15px;
+}
+
+.single-message-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+    color: black;
+    display: flex;
+    padding-left: 10px;
+    /* margin-bottom: px; */
+    align-items: center;
+    position: relative;
+}
+
+.user-badge-icon {
+    width: 38px;
+    height: 38px;
+    border: 0px;
+    border-radius: 50%;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.user-username-text {
+    font-weight: 700;
+    padding: 3px 20px;
+}
+
+.message-bottom-margin {
+    margin-bottom: 15px;
+}
+
+.repeat-single-message-container {
+    width: 100%;
+    color: black;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    padding: 2px 68px;
+}
+
+.single-message-wrapper:hover .comment-menu-dropdown-content {
+    display: block;
+}
+
+.repeat-single-message-wrapper:hover .comment-menu-dropdown-content {
+    display: block;
+}
+
+.repeat-single-message-container:hover {
+    background-color: #b8e28a;
+}
+
+.single-message-wrapper:hover {
+    background-color: #b8e28a;
+}
+
+.repeat-single-message-wrapper:has(.comment-menu-dropdown-content:hover) {
+    background-color: #b8e28a;
+}
+
+
+.comment-menu-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: -12px;
+    border: 1px solid #ecf8e5;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 0;
+    background-color: #b8e28a;
+}
+
+.repeat-single-message-wrapper {
+    position: relative;
+}
+
+.comment-edit-button{
+    position: relative;
+}
+
+.comment-edit-button:hover {
+    background-color: #7dc430;
+    border-radius: 5px;
+}
+
+.comment-delete-button:hover {
+    background-color: #7dc430;
+    border-radius: 5px;
+}
+
+.comment-edit-button:hover ~ .edit-bubble-icon-text-wrapper {
+    display: flex;
+}
+
+.comment-edit-button:hover ~ .edit-bubble-icon-text-wrapper .arrow-down-edit {
+    display: flex;
+}
+
+.edit-bubble-icon-text-wrapper {
+    position: absolute;
+    top: -37px;
+    right: 12px;
+    color: black;
+    display: none;
+    background-color: #b8e28a;
+    border-radius: 5px;
+    min-width: 50px;
+    min-height: 30px;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-size: 16px;
+}
+
+.arrow-down-edit {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #245D5A;
+    position: absolute;
+    right: 19px;
+    bottom: -5px;
+    display: none;
+}
+
+.comment-delete-button:hover ~ .delete-bubble-icon-text-wrapper {
+    display: flex;
+}
+
+.comment-delete-button:hover ~ .delete-bubble-icon-text-wrapper .arrow-down-delete {
+    display: flex;
+}
+
+.delete-bubble-icon-text-wrapper {
+    position: absolute;
+    top: -37px;
+    right: -12px;
+    color: black;
+    display: none;
+    background-color: #b8e28a;
+    border-radius: 5px;
+    min-width: 70px;
+    min-height: 30px;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-size: 16px;
+}
+
+.arrow-down-delete {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #245D5A;
+    position: absolute;
+    right: 19px;
+    bottom: -5px;
+    display: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px #356276; */
+    border-radius: 10px;
+    background-color: #5ec57e;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    /* -webkit-box-shadow: inset 0 0 6px #5ec57e; */
+    background-color: #b8e28a;
+    border: 1px solid #5ec57e;
 }

@@ -1,4 +1,32 @@
 .main-div {
     display: flex;
+    width: 100%;
+    /* flex-direction: column; */
+}
+
+.middle-div {
+    min-width: 500px;
+    width: 100%;
+    display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+}
+
+.middle-bottom-div {
+    width: 100%;
+    display: flex;
+    height: calc(100vh - 53px);
+    background-color: #dcf4ce;
+    position: relative;
+}
+
+@media (max-width: 1005px) {
+    .middle-bottom-div {
+        height: calc(100vh - 70px);
+    }
+  }
+
+html {
+    padding: 0;
+    margin: 0;
 }

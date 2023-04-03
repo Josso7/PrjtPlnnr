@@ -19,13 +19,13 @@ export const postChannels = (project_id, name, channel_type) => async dispatch =
     });
 
     if(response.ok) {
-        dispatch(getChannelsById(project_id));
+        dispatch(getChannelsByProjectId(project_id));
         return 'channel saved to database';
     };
 };
 
-export const getChannelsById = (project_id) => async dispatch => {
-    const response = await fetch(`/api/channels/${project_id}`);
+export const getChannelsByProjectId = (project_id) => async dispatch => {
+    const response = await fetch(`/api/projects/${project_id}/channels`);
 
     if(response.ok){
         const channels = await response.json();

@@ -2,7 +2,7 @@ import './ProjectChannels.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getProjectsById } from '../../store/project'
-import { getChannelsById } from '../../store/channel';
+import { getChannelsByProjectId } from '../../store/channel';
 
 function ProjectChannels({ activeProject, handleActiveChannel }){
 
@@ -14,7 +14,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
 
     useEffect(() => {
         if(user)dispatch(getProjectsById(user.id))
-        dispatch(getChannelsById(activeProject))
+        dispatch(getChannelsByProjectId(activeProject))
     },[user])
 
     useEffect(() => {

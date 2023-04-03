@@ -1,7 +1,7 @@
 from cmath import log
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Project, Message, ProjectMembers, OnlineUsers, User, db
+from app.models import Project, Message, ProjectMembers, OnlineUsers, User, Channel, db
 from datetime import datetime
 
 project_routes = Blueprint('projects', __name__)
@@ -51,7 +51,7 @@ def post_messages(channel_id):
     db.session.add(message)
     db.session.commit()
 
-    return {}
+    return message.to_dict()
 
 @project_routes.route('/members/<int:user_id>', methods=['GET'])
 @login_required
@@ -72,3 +72,17 @@ def get_online_users(project_id):
     users = User.query.filter(User.id.in_(online_user.user_id for online_user in online_users))
     # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', [user.to_dict() for user in users])
     return { 'online_users': [user.to_dict() for user in users]}
+
+@project_routes.route('/<int:project_id>/channels', methods=['GET'])
+@login_required
+def get_channels_by_project_id(project_id):
+
+    channels = Channel.query.filter(project_id == Channel.project_id).all()
+    return { 'channels' : [channel.to_dict() for channel in channels]}
+
+@project_routes.route('/<int:project_id>/users')
+@login_required
+def get_project_users(project_id):
+    project_members = ProjectMembers.query.filter(ProjectMembers.project_id == project_id)
+    users = User.query.filter(User.id.in_(project_member.user_id for project_member in project_members))
+    return { 'entries': [user.to_dict() for user in users]}

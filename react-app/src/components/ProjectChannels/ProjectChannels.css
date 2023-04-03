@@ -1,14 +1,13 @@
 .channels-container {
-    position: absolute;
+    /* position: absolute;
     left: 72px;
-    top: 0;
+    top: 0; */
     font-family: 'Barlow';
     font-size: 16px;
     padding-top: 20px;
-    width: 240px;
-    min-height: 98%;
-    background: #dcf4ce;
-    color: #356276;
+    min-width: 240px;
+    background: #b8e28a;
+    color: #5ec57e;
 }
 
 .username-text {
@@ -89,7 +88,7 @@
   }
 
   .meter-2 {
-    stroke: #b8e28a;
+    stroke: #5ec57e;
     stroke-dasharray: 360;
     stroke-dashoffset: 160;
     animation: progress-2 .75s ease-out;

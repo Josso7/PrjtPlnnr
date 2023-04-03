@@ -1,0 +1,27 @@
+.channel-name-container {
+    min-height: 50px;
+    width: 100%;
+    min-width: 695px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background-color: #dcf4ce;
+    border-bottom: 3px solid #5ec57e;
+    border-image: linear-gradient(0deg, #b8e28a, yellow 50%, black);
+    border-image-slice: 10%;
+}
+
+/* .channel-name-container::after {
+    background-image: linear-gradient(to bottom, green,);
+} */
+
+.channel-name-text {
+    font-family: 'Barlow';
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+#channel-name-hashtag {
+    margin-right: 5px;
+}

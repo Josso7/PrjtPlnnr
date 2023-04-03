@@ -13,7 +13,7 @@ import HomePage from './components/HomePage';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-
+  console.log('app component mounted');
   useEffect(() => {
     (async() => {
       await dispatch(authenticate());

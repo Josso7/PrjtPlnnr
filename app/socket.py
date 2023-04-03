@@ -116,12 +116,10 @@ def heartbeat_check(user):
             emit('user_inactive', users[user], broadcast=True)
             del users[user]
             print('!!!!!!!!!!!!!! USERS AFTER DELETE !!!!!!!!!!!!!!!', users)
-    emit('online_users', users)
+    emit('online_users', users, broadcast=True)
 
 def check_users_online():
     if db.session.query(OnlineUsers).all():
         return True
     else:
         return False
-
-print('YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')

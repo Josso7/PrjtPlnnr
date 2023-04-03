@@ -18,10 +18,3 @@ def post_channel():
     db.session.commit()
 
     return channel.to_dict()
-
-@channel_routes.route('/<int:project_id>', methods=['GET'])
-@login_required
-def get_channels_by_project_id(project_id):
-
-    channels = Channel.query.filter(project_id == Channel.project_id).all()
-    return { 'channels' : [channel.to_dict() for channel in channels]}

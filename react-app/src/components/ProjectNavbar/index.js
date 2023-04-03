@@ -2,6 +2,7 @@ import './ProjectNavbar.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getProjectsById, getJoinedProjects } from '../../store/project';
+import { resetMessages } from '../../store/message';
 
 function ProjectNavbar({handleActiveProject}){
 
@@ -35,6 +36,7 @@ function ProjectNavbar({handleActiveProject}){
 
     const handleClick = (projectId) => {
         setActiveProject(projectId);
+        dispatch(resetMessages())
     }
 
     return (

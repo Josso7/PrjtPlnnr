@@ -20,6 +20,7 @@ function ProjectNavbar({handleActiveProject}){
 
     useEffect(() => {
         handleActiveProject(activeProject);
+        dispatch(resetMessages())
     },[activeProject])
 
     useEffect(() => {
@@ -36,7 +37,6 @@ function ProjectNavbar({handleActiveProject}){
 
     const handleClick = (projectId) => {
         setActiveProject(projectId);
-        dispatch(resetMessages())
     }
 
     return (

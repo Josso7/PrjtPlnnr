@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getProjectsById } from '../../store/project'
 import { getChannelsByProjectId } from '../../store/channel';
+import { resetMessages } from '../../store/message'
 
 function ProjectChannels({ activeProject, handleActiveChannel }){
 
@@ -19,12 +20,12 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
 
     useEffect(() => {
         handleActiveChannel(activeChannel);
+        dispatch(resetMessages())
     },[activeChannel])
 
     const handleClick = (e, channelId) => {
         e.preventDefault();
         setActiveChannel(channelId);
-
     }
 
     useEffect(() => {
@@ -63,7 +64,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
                 className='single-channel-container'
                 onClick={(e) => handleClick(e, channel.id)}>
 
-                    <div>
+                    <div className='channel-selector'>
                         #{channel.name}
                     </div>
 

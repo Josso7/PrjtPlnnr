@@ -11,6 +11,7 @@ import Messages from '../Messages';
 import { useHistory } from 'react-router-dom';
 import OnlineUsers from '../OnlineUsers';
 import ChannelName from '../ChannelName';
+import { resetMessages } from '../../store/message'
 
 let socket;
 
@@ -30,7 +31,8 @@ function HomePage() {
     },[user])
 
     useEffect(() => {
-        if (activeChannel) dispatch(getMessagesById(activeChannel))
+        dispatch(resetMessages())
+        // if (activeChannel) dispatch(getMessagesById(activeChannel))
     },[activeChannel])
 
     useEffect(() => {
@@ -40,7 +42,7 @@ function HomePage() {
 
     useEffect(() => {
         if(channels) setActiveChannel(channels[0].id);
-    }, [activeProject, channels])
+    }, [channels])
 
     useEffect(() => {
         if(projects) setActiveProject(projects[0].id)
@@ -74,6 +76,7 @@ function HomePage() {
         <div className='main-div'>
             <ProjectNavbar
                 handleActiveProject={handleActiveProject}
+                activeProject={activeProject}
             />
             <ProjectChannels activeProject={activeProject} handleActiveChannel={handleActiveChannel}/>
             <div className='middle-div'>

@@ -153,7 +153,8 @@ function Messages({ activeProject, activeChannel, users }) {
         );
       else {
         const userInfo = users.find((user) => user.id === message.user_id);
-        console.log("user-info", user);
+        console.log("user-info", userInfo);
+        console.log("messages", messages)
         console.log("message-info", message.user_id);
         console.log("users-info", users);
         formattedMessages.push(

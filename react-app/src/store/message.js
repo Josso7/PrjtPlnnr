@@ -47,8 +47,7 @@ export const getMessagesById = (channelId) => async dispatch => {
     };
 };
 
-const initialState = {
-};
+const initialState = null;
 
 const reducer = (state = initialState, action) => {
 
@@ -65,7 +64,7 @@ const reducer = (state = initialState, action) => {
         return newState;
       }
       case RESET_MESSAGES: {
-        const newState = {};
+        const newState = null;
         return newState;
       }
       default: return state;

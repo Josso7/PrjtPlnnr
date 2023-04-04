@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 import { getProjectsById, getJoinedProjects } from '../../store/project';
 import { resetMessages } from '../../store/message';
 
-function ProjectNavbar({handleActiveProject}){
+function ProjectNavbar({handleActiveProject, activeProject}){
 
     const dispatch = useDispatch();
     const projects = useSelector(state => state?.projects?.entries);
     const user = useSelector(state => state?.session?.user);
     const joinedProjects = useSelector(state => state?.projects.joinedProjects);
-    const [activeProject, setActiveProject] = useState('');
+    // const [activeProject, setActiveProject] = useState('');
 
     let projectsToDisplay;
 
@@ -19,7 +19,6 @@ function ProjectNavbar({handleActiveProject}){
     }, [])
 
     useEffect(() => {
-        handleActiveProject(activeProject);
         dispatch(resetMessages())
     },[activeProject])
 
@@ -36,7 +35,7 @@ function ProjectNavbar({handleActiveProject}){
     }, [joinedProjects, projects])
 
     const handleClick = (projectId) => {
-        setActiveProject(projectId);
+        handleActiveProject(projectId);
     }
 
     return (

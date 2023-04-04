@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { getProjectsById, getUsersByProject } from '../../store/project'
 import { getChannelsByProjectId } from '../../store/channel';
-import { getMessagesById } from '../../store/message';
 import ProjectNavbar from '../ProjectNavbar';
 import ProjectChannels from '../ProjectChannels';
 import Messages from '../Messages';
@@ -29,11 +28,6 @@ function HomePage() {
         if(user)dispatch(getProjectsById(user.id))
             else history.push('/')
     },[user])
-
-    useEffect(() => {
-        dispatch(resetMessages())
-        // if (activeChannel) dispatch(getMessagesById(activeChannel))
-    },[activeChannel])
 
     useEffect(() => {
         if (activeProject) dispatch(getChannelsByProjectId(activeProject))

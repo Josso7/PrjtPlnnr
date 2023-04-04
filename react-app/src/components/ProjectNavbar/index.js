@@ -10,7 +10,6 @@ function ProjectNavbar({handleActiveProject, activeProject}){
     const projects = useSelector(state => state?.projects?.entries);
     const user = useSelector(state => state?.session?.user);
     const joinedProjects = useSelector(state => state?.projects.joinedProjects);
-    // const [activeProject, setActiveProject] = useState('');
 
     let projectsToDisplay;
 

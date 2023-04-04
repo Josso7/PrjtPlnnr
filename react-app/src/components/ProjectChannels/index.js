@@ -2,8 +2,9 @@ import './ProjectChannels.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getProjectsById } from '../../store/project'
-import { getChannelsByProjectId } from '../../store/channel';
-import { resetMessages } from '../../store/message'
+import { getChannelsByProjectId, postChannels } from '../../store/channel';
+import { createPortal } from 'react-dom';
+import ChannelForm from '../Forms/ChannelForm';
 
 function ProjectChannels({ activeProject, handleActiveChannel }){
 
@@ -12,6 +13,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
     const channels = useSelector(state => state?.channels?.entries);
     const user = useSelector(state => state?.session?.user);
     const [activeChannel, setActiveChannel] = useState('');
+    const [showChannelForm, setShowChannelForm] = useState(false);
 
     useEffect(() => {
         if(user)dispatch(getProjectsById(user.id))
@@ -20,7 +22,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
 
     useEffect(() => {
         handleActiveChannel(activeChannel);
-        dispatch(resetMessages())
+        // dispatch(resetMessages())
     },[activeChannel])
 
     const handleClick = (e, channelId) => {
@@ -31,6 +33,11 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
     useEffect(() => {
         handleActiveChannel(activeChannel);
     },[activeChannel])
+
+    const postChannel = () => {
+
+    }
+
 
     return(
         <>
@@ -52,7 +59,8 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
                         {joinedProjects && activeProject && joinedProjects?.find(project => project.id == activeProject).name}
                     </div>
 
-                    <div className='add-channel-button'>
+                    <div className='add-channel-button'
+                    onClick={(e) => setShowChannelForm(true)}>
                         +
                     </div>
 
@@ -70,6 +78,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
 
                 </div>))}
             </div>
+            {showChannelForm && <ChannelForm activeProject={activeProject} setShowChannelForm={setShowChannelForm}/>}
         </>
     )
 }

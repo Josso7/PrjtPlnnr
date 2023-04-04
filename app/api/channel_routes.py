@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import Channel, db
+from datetime import datetime
 
 channel_routes = Blueprint('channels', __name__)
 
@@ -11,7 +12,8 @@ def post_channel():
     channel = Channel(
         project_id = data['project_id'],
         name = data['name'],
-        channel_type = data['channel_type']
+        created_at_date = datetime.utcnow(),
+        updated_at_date = datetime.utcnow()
     )
 
     db.session.add(channel)

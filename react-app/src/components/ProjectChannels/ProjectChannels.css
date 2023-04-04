@@ -45,7 +45,8 @@
 
 
 .single-channel-container {
-    margin-left: 15px;
+    padding-left: 15px;
+    box-sizing: border-box;
 }
 
 .progress-bar-wrapper {
@@ -123,4 +124,9 @@
 
 .channel-selector:hover {
   cursor: pointer;
+}
+
+.single-channel-container:hover {
+  background-color: green;
+  border-radius: 10px;
 }

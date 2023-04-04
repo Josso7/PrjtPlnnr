@@ -1,0 +1,26 @@
+.channel-form-wrapper {
+    position: absolute;
+    width: 500px;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    margin:auto;
+    border: 1px solid green;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #5ec57e;
+    z-index: 999999;
+}
+
+.channel-form-name-label {
+    display: block;
+}
+
+.channel-form-submit {
+    display: block;
+    margin: auto;
+}
+
+.channel-form-error {
+    color: darkred;
+}

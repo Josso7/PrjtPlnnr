@@ -85,6 +85,7 @@
     /* margin-bottom: px; */
     align-items: center;
     position: relative;
+    z-index: 9999;
 }
 
 .user-badge-icon {
@@ -169,6 +170,8 @@
 
 .comment-edit-button:hover ~ .edit-bubble-icon-text-wrapper {
     display: flex;
+    z-index: 99999;
+    position: absolute;
 }
 
 .comment-edit-button:hover ~ .edit-bubble-icon-text-wrapper .arrow-down-edit {
@@ -254,4 +257,20 @@
     /* -webkit-box-shadow: inset 0 0 6px #5ec57e; */
     background-color: #b8e28a;
     border: 1px solid #5ec57e;
+}
+
+.messages-welcome {
+    color: black;
+    font-family: 'Barlow';
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.messages-channel-start {
+    color: black;
+    font-family: 'Barlow';
+    display: flex;
+    justify-content: center;
 }

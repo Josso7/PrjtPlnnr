@@ -5,6 +5,7 @@ import { getProjectsById } from '../../store/project'
 import { getChannelsByProjectId, postChannels } from '../../store/channel';
 import { createPortal } from 'react-dom';
 import ChannelForm from '../Forms/ChannelForm';
+import SingleProjectChannel from './SingleProjectChannel';
 
 function ProjectChannels({ activeProject, handleActiveChannel }){
 
@@ -14,6 +15,10 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
     const user = useSelector(state => state?.session?.user);
     const [activeChannel, setActiveChannel] = useState('');
     const [showChannelForm, setShowChannelForm] = useState(false);
+    const [activeChannelSettings, setActiveChannelSettings] = useState('')
+    const [channelFormType, setChannelFormType] = useState('')
+    const [activeChannelObj, setActiveChannelObj] = useState(null)
+    const [showChannelSettings, setShowChannelSettings] = useState(false)
 
     useEffect(() => {
         if(user)dispatch(getProjectsById(user.id))
@@ -22,24 +27,60 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
 
     useEffect(() => {
         handleActiveChannel(activeChannel);
-        // dispatch(resetMessages())
-    },[activeChannel])
 
-    const handleClick = (e, channelId) => {
-        e.preventDefault();
-        setActiveChannel(channelId);
-    }
+    },[activeChannel])
 
     useEffect(() => {
-        handleActiveChannel(activeChannel);
-    },[activeChannel])
+        setActiveChannelObj(channels?.find(channel => channel.id === activeChannelSettings))
+    },[activeChannelSettings])
 
     const postChannel = () => {
 
     }
 
+    const closeChannelSettingsMenu = (e) => {
+        console.log('yo')
+        if(e.target.className !== 'channel-settings-options-bubble-text' && !(e.target.matches('.channel-settings-icon, .channel-settings-icon *'))) {
+            setShowChannelSettings(false)
+            // console.log('inside 1st if statement')
+            // console.log(e.target)
+        }
+        if(e.target.className !== 'channel-settings-options-bubble-text' && !(e.target.matches('.channel-form-wrapper, .channel-form-wrapper *')) && !(e.target.matches('.channel-settings-icon, .channel-settings-icon *')) && !(e.target.matches('.channel-settings-edit-button, .channel-settings-edit-button *'))){
+            setActiveChannelSettings('')
+            console.log('inside 1st if statement')
+            console.log(e.target)
+        }
+    }
 
-    return(
+    const closeChannelForm = (e) => {
+        // console.log('yo')
+        if(!(e.target.matches('.channel-form-wrapper, .channel-form-wrapper *')) && !(e.target.matches('.channel-settings-edit-button'))) {
+            // console.log('inside if statement')
+            // console.log(e.target)
+            setShowChannelForm(false)
+            // setActiveChannelSettings('')
+        }
+        // if(!(e.target.matches('.channel-settings-edit-button'))) {
+        //     console.log('inside if statement')
+        //     console.log(e.target)
+        //     setShowChannelForm(false)
+        //     // setActiveChannelSettings('')
+        // }
+    }
+
+
+
+    useEffect(() => {
+        window.addEventListener('click', closeChannelSettingsMenu)
+        window.addEventListener('click', closeChannelForm)
+
+        return () => {
+            window.removeEventListener('click', closeChannelSettingsMenu)
+            window.removeEventListener('click', closeChannelForm)
+        }
+    }, [])
+
+    return (
         <>
             <div className='channels-container'>
                 <div className='username-text'>
@@ -47,7 +88,7 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
                 </div>
                 <div class="dashboard">
                 <div className='progress-bar-wrapper'>
-                    <svg>
+                    <svg className='svg-animation'>
                         <circle class="bg" cx="57" cy="57" r="52" />
                         <circle class="meter-2" cx="57" cy="57" r="52" />
                     </svg>
@@ -60,25 +101,21 @@ function ProjectChannels({ activeProject, handleActiveChannel }){
                     </div>
 
                     <div className='add-channel-button'
-                    onClick={(e) => setShowChannelForm(true)}>
+                        onClick={(e) => {
+                            setShowChannelForm(true)
+                            setChannelFormType('post')
+                        }
+                    }>
                         +
                     </div>
 
                 </div>
 
                 {channels && channels.map(channel => (
-                <div
-                key={channel.id}
-                className='single-channel-container'
-                onClick={(e) => handleClick(e, channel.id)}>
-
-                    <div className='channel-selector'>
-                        #{channel.name}
-                    </div>
-
-                </div>))}
+                    <SingleProjectChannel setShowChannelSettings={setShowChannelSettings} showChannelSettings={showChannelSettings} channel={channel} setChannelFormType={setChannelFormType} activeChannelSettings={activeChannelSettings} setActiveChannel={setActiveChannel} setActiveChannelSettings={setActiveChannelSettings} setShowChannelForm={setShowChannelForm}/>
+                ))}
             </div>
-            {showChannelForm && <ChannelForm activeProject={activeProject} setShowChannelForm={setShowChannelForm}/>}
+            {showChannelForm && <ChannelForm activeChannelObj={activeChannelObj} channelFormType={channelFormType} activeProject={activeProject} setShowChannelForm={setShowChannelForm} activeChannelSettings={activeChannelSettings}/>}
         </>
     )
 }

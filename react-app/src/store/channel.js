@@ -1,9 +1,31 @@
-const GET_CHANNELS_BY_PROJECT = '/project/GET_CHANNELS_BY_PROJECT';
+const GET_CHANNELS_BY_PROJECT = '/channels/GET_CHANNELS_BY_PROJECT';
+const LOAD_CHANNEL = '/channels/LOAD_CHANNEL'
 
 const loadUserChannels = (channels) => ({
     type: GET_CHANNELS_BY_PROJECT,
     channels
 });
+
+const loadChannel = (channel) => ({
+    type: LOAD_CHANNEL,
+    channel
+})
+
+export const editChannel = (channelId, name) => async dispatch => {
+    const response = await fetch('/api/channels/edit', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            channelId,
+            name,
+        })
+    })
+    if(response.ok) {
+        dispatch(loadChannel)
+    }
+}
 
 export const postChannels = (project_id, name, channel_type) => async dispatch => {
     const response = await fetch('/api/channels/', {
@@ -45,6 +67,11 @@ const reducer = (state = initialState, action) => {
             entries: [...action.channels.channels]
         };
       };
+      case LOAD_CHANNEL: {
+        const newState = {...state}
+        newState.entries[action.channel.id] = action.channel
+        return newState
+      }
       default: return state;
     };
   };

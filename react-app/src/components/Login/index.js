@@ -1,8 +1,8 @@
 import './Login.css';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/session';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 function Login(){
 
@@ -11,6 +11,11 @@ function Login(){
     const [errors, setErrors] = useState([]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const user = useSelector(state => state.session)
+
+    if(user){
+        return <Redirect to={'/home'}/>
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -27,7 +27,7 @@ function OnlineUsers({ activeProject }) {
                     return (
                         <div className='online-user-container' key={onlineUser.id}>
                             <div className='user-image'>
-                                <div> {onlineUser.username[0]} </div>
+                                <div> {onlineUser.username[0].toUpperCase()} </div>
                                 <div className='status-indicator-image'>
 
                                 </div>

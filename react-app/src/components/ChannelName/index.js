@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 function ChannelName({ activeChannel }) {
 
-    const channels = useSelector(state => state.channels.entries);
+    const channels = useSelector(state => Object.values(state.channels.entries));
     const currentChannel = channels?.find(channel => channel.id === activeChannel)
 
     return(

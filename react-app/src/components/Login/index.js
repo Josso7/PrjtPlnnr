@@ -13,9 +13,10 @@ function Login(){
     const [password, setPassword] = useState('');
     const user = useSelector(state => state.session)
 
-    if(user){
-        return <Redirect to={'/home'}/>
-    }
+    // if(user){
+    //     history.push('/home')
+    //     // return <Redirect to={'/home'}/>
+    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();

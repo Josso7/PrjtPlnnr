@@ -1,4 +1,4 @@
-.channel-form-wrapper {
+.project-form-wrapper {
     position: absolute;
     width: 500px;
     height: 120px;
@@ -10,34 +10,14 @@
     border-radius: 10px;
     text-align: center;
     background-color: #5ec57e;
-    z-index: 999999;
+    z-index: 99999999;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-
-
-.channel-form-name-label {
-    display: block;
-    color: black;
-    font-family: 'Barlow';
-    font-size: 20px;
-}
-
-#channel-form-name-input {
-    /* text-align: center; */
-    padding: 0px 3px;
-    width: 90%;
-    margin-top: 12px;
-    margin-bottom: 12px;
-    font-family: 'Barlow';
-    font-size: 20px;
-    /* margin-top: 10px; */
-}
-
-.channel-form-submit {
+.project-form-submit {
     display: block;
     /* margin-top: 10px; */
     font-family: 'Barlow';
@@ -49,14 +29,37 @@
     padding-right: 10px;
 }
 
-.channel-form-error {
-    color: darkred;
+.project-form-name-label {
+    display: block;
+    color: black;
+    font-family: 'Barlow';
+    font-size: 20px;
 }
 
-.channel-form {
+#project-form-name-input {
+    padding: 0px 3px;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-family: 'Barlow';
+    font-size: 20px;
+}
+
+.project-form {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    width: 90%;
+}
+
+.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
 }

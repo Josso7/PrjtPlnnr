@@ -1,67 +1,60 @@
 import "./Messages.css";
 import { useSelector, useDispatch } from "react-redux";
+import { createPortal } from 'react-dom'
 import { useEffect, useState, useRef } from "react";
 import { getChannelsByProjectId } from "../../store/channel";
-import { getMessagesById } from "../../store/message";
-import { postMessages } from "../../store/message";
+import { postMessages, deleteMessage, getMessagesById } from "../../store/message";
 import { io } from "socket.io-client";
 import EditIcon from "@mui/icons-material/Edit";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ChatInput from "./chatInput";
+import EditMessageForm from '../Forms/MessageForm'
 
 let socket;
 
-function Messages({ activeProject, activeChannel, users }) {
+function Messages({ activeProject, activeChannel, users, initialClick }) {
   const dispatch = useDispatch();
-  const messages = useSelector((state) => state?.messages?.entries);
-  const channels = useSelector((state) => state?.channels?.entries);
-  const currentChannel = channels?.find(
-    (channel) => channel.id === activeChannel
-  );
+  const messages = useSelector((state) => Object.values(state?.messages?.entries));
+  const channels = useSelector((state) => Object.values(state?.channels?.entries));
   const user = useSelector((state) => state?.session?.user);
   const chatBoxEnd = useRef(null);
+  const [currentChannel, setCurrentChannel] = useState();
   const [chatInput, setChatInput] = useState("");
-  const [socketMessages, setSocketMessages] = useState([]);
+  const [showEditMessageForm, setShowEditMessageForm] = useState('')
+  const [activeEditMessage, setActiveEditMessage] = useState('')
   let channel;
+
+  console.log('rerender')
 
   useEffect(() => {
     socket = io();
-    console.log(socket);
 
     socket.emit("join", { username: user.username, room: activeChannel });
     socket.emit("join_room", { username: user.username, room: activeChannel });
-    // socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has joined the room.`, room: activeChannel });
 
-    socket.on("chat", (chat) => {
-      console.log("chat event emitted");
-      console.log(chat);
+    socket.on("chat", () => {
       dispatch(getMessagesById(activeChannel));
-      // setSocketMessages(socketMessages => [...socketMessages, chat]);
-      // console.log(socketMessages)
-      // scroll();
     });
 
-    // socket.on('join_room', (user) => {
-    //     // dispatch(getRooms(groupId));
-    // });
-
-    // socket.on('leave_room', (user) => {
-    //     // dispatch(getRooms(groupId));
-    // });
-
     return () => {
-      // dispatch(leaveChatRoom(activeChannel));
       socket.emit("leave", { username: user.username, room: activeChannel });
       socket.emit("leave_room", {
         username: user.username,
         room: activeChannel,
       });
-      // socket.emit('chat', { user: 'weStudy-Bot', msg: `${user.username} has left the room.`, room: activeChannel });
 
       socket.disconnect();
     };
   }, [activeChannel, user, dispatch]);
+
+  useEffect(() => {
+    if(Object.values(channels).length){
+      const currChannel = channels?.find(
+        (channel) => channel.id === activeChannel
+      );
+      setCurrentChannel(currChannel)
+    }
+  }, [channels])
 
   useEffect(() => {
     dispatch(getChannelsByProjectId(activeProject));
@@ -74,21 +67,35 @@ function Messages({ activeProject, activeChannel, users }) {
   useEffect(() => {
     if (channels && activeChannel) {
       channel = channels?.find((element) => element.id == activeChannel);
-      console.log("channel", channel);
     }
   }, [channels, activeChannel]);
 
   useEffect(() => {
-    // console.log(chatBox.current.scrollIntoView(false))
-    // chatBox.current.scrollIntoView(true)
     chatBoxEnd.current.scrollIntoView({ behavior: "auto" });
-  }, [messages, socketMessages]);
+  }, [messages]);
+
+  const closeMessageEditForm = (e) => {
+    if(!(e.target.matches('.edit-message-form, .edit-message-form *, .comment-menu-dropdown-content, .comment-menu-dropdown-content *'))){
+      if(initialClick.current.id !== "message-form-input"){
+        setShowEditMessageForm(false)
+        setActiveEditMessage('')
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('click', closeMessageEditForm)
+    // window.addEventListener('click', closeChannelForm)
+
+    return () => {
+        window.removeEventListener('click', closeMessageEditForm)
+        // window.removeEventListener('click', closeChannelForm)
+    }
+}, [])
 
   const postMessage = async (e) => {
     e.preventDefault();
 
-    // await new Promise(resolve => socket.emit('chat', { user: user.username, msg: chatInput, room: activeChannel, created_at: (new Date()).toLocaleTimeString() }, resolve()))
-    //     .then(() => dispatch(postMessages(activeChannel, user.id, chatInput)));
     if (chatInput) {
       dispatch(postMessages(activeChannel, user.id, chatInput));
       socket.emit("chat", {
@@ -101,16 +108,14 @@ function Messages({ activeProject, activeChannel, users }) {
     }
   };
 
-  const handleInput = (e) => {
-    setChatInput(e.target.value);
-    e.target.style.height = "20px";
-    e.target.style.height = `${e.target.scrollHeight + 4}px`;
-    console.log(e.target.scrollHeight);
-  };
+  const handleEditClick = (e,message) => {
+    setShowEditMessageForm(true)
+    setActiveEditMessage(message)
+  }
 
-  const handleEditClick = (e) => {
-    e.preventDefault();
-  };
+  const handleDeleteClick = (e, messageId) => {
+    dispatch(deleteMessage(messageId))
+  }
 
   const formatMessages = (messages, users) => {
     const formattedMessages = [];
@@ -135,6 +140,7 @@ function Messages({ activeProject, activeChannel, users }) {
                 <DeleteIcon
                   sx={{ mt: 0 }}
                   style={{ color: "green" }}
+                  onClick={(e) => handleDeleteClick(e, message.id)}
                   className="comment-menu-button comment-delete-button"
                 >
                   Delete
@@ -153,10 +159,6 @@ function Messages({ activeProject, activeChannel, users }) {
         );
       else {
         const userInfo = users.find((user) => user.id === message.user_id);
-        console.log("user-info", userInfo);
-        console.log("messages", messages)
-        console.log("message-info", message.user_id);
-        console.log("users-info", users);
         formattedMessages.push(
           <>
             <div className="message-bottom-margin"></div>
@@ -181,6 +183,7 @@ function Messages({ activeProject, activeChannel, users }) {
                   <DeleteIcon
                     sx={{ mt: 0 }}
                     style={{ color: "green" }}
+                    onClick={(e) => handleDeleteClick(e, message.id)}
                     className="comment-menu-button comment-delete-button"
                   >
                     Delete
@@ -205,37 +208,18 @@ function Messages({ activeProject, activeChannel, users }) {
   };
 
   return (
-    <div className="messages-wrapper">
-      {/* {currentChannel && <div className="messages-welcome">Welcome to #{currentChannel.name}</div>} */}
-      <div className="messages-container">
-        {/* {messages && messages.map(message => (
-                    <div key={message.id} className='single-message-container'>
-                        {message.content}
-                    </div>))} */}
-        {messages && users && formatMessages(messages, users)}
-        {/* {activeChannel && socketMessages && socketMessages.map(message => (
-                    <div key={message.id} className='single-socket-message'>
-                        {message.msg}
-                    </div>
-                ))} */}
-        <div ref={chatBoxEnd}></div>
+    <>
+      <div className="messages-wrapper">
+        <div className="messages-container">
+          {messages && users && formatMessages(messages, users)}
+          <div ref={chatBoxEnd}></div>
+        </div>
+        <ChatInput activeChannel={activeChannel} socket={socket}/>
       </div>
-      <div className="chat-container">
-        {activeChannel && messages && channels && (
-          <form autoComplete="off" className="chat-form" onSubmit={postMessage}>
-            <textarea
-              className="chat-input"
-              value={chatInput}
-              onChange={(e) => handleInput(e)}
-              placeholder={`Message #${currentChannel && currentChannel.name}`}
-              onKeyPress={(e) =>
-                e.key === "Enter" && !e.shiftKey && postMessage(e)
-              }
-            ></textarea>
-          </form>
-        )}
-      </div>
-    </div>
+      {showEditMessageForm && createPortal(
+        <EditMessageForm message={activeEditMessage} setShowEditMessageForm={setShowEditMessageForm}/>, document.querySelector('.main-div')
+      )}
+    </>
   );
 }
 export default Messages;

@@ -1,8 +1,8 @@
-.channel-form-wrapper {
+.message-form-wrapper {
     position: absolute;
     width: 500px;
-    height: 120px;
-    top: calc(50vh - 60px);
+    height: 240px;
+    top: calc(50vh - 120px);
     left: calc(50vw - 250px);
     /* transform: translate(-50%, -50%); */
     margin:auto;
@@ -18,45 +18,41 @@
 }
 
 
-
-.channel-form-name-label {
-    display: block;
-    color: black;
+.edit-message-input {
     font-family: 'Barlow';
-    font-size: 20px;
+    font-size: 16px;
+    width: 450px;
+    height: 120px;
+    margin-top: 8px;
+    resize: none;
+
 }
 
-#channel-form-name-input {
-    /* text-align: center; */
-    padding: 0px 3px;
-    width: 90%;
-    margin-top: 12px;
-    margin-bottom: 12px;
-    font-family: 'Barlow';
-    font-size: 20px;
-    /* margin-top: 10px; */
-}
-
-.channel-form-submit {
+.edit-message-submit-button {
     display: block;
-    /* margin-top: 10px; */
+    margin-top: 3%;
     font-family: 'Barlow';
     font-size: 20px;
     background-color: #b8e28a;
     border: solid 2px green;
     border-radius: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-.channel-form-error {
-    color: darkred;
+.message-form-label {
+    color: black;
+    font-family: 'Barlow';
+    font-size: 20px;
 }
 
-.channel-form {
+.edit-message-input-wrapper {
+    width: 90%;
+}
+
+.edit-message-form {
     display: flex;
-    flex-direction: column;
-    width: 100%;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }

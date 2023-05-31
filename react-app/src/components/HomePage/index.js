@@ -1,6 +1,6 @@
 import './HomePage.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { useEffect, useState, useRef } from 'react';
 import { io } from 'socket.io-client';
 import { getProjectsById, getUsersByProject } from '../../store/project'
 import { getChannelsByProjectId } from '../../store/channel';
@@ -15,19 +15,18 @@ import { resetMessages } from '../../store/message'
 let socket;
 
 function HomePage() {
+
     const history = useHistory();
     const dispatch = useDispatch();
-    const projects = useSelector(state => state?.projects?.joinedProjects);
-    const channels = useSelector(state => state?.channels?.entries);
+    const projects = useSelector(state => Object.values(state?.projects?.joinedProjects), shallowEqual);
+    const channels = useSelector(state => Object.values(state?.channels?.entries), shallowEqual);
     const user = useSelector(state => state?.session?.user);
     const users = useSelector(state => Object.values(state.projects.users));
-    const [activeProject, setActiveProject] = useState('');
+    const [activeProject, setActiveProject] = useState(projects[0]?.id);
     const [activeChannel, setActiveChannel] = useState('');
-    console.log(users);
-    useEffect(() => {
-        if(user)dispatch(getProjectsById(user.id))
-            else history.push('/')
-    },[user])
+    const firstRender = useRef(true)
+    const initialClick = useRef(null)
+    const projectsLength = useRef()
 
     useEffect(() => {
         if (activeProject) dispatch(getChannelsByProjectId(activeProject))
@@ -35,11 +34,21 @@ function HomePage() {
     },[activeProject])
 
     useEffect(() => {
-        if(channels) setActiveChannel(channels[0].id);
+        if(channels) setActiveChannel(channels[0]?.id);
     }, [channels])
 
     useEffect(() => {
-        if(projects) setActiveProject(projects[0].id)
+        if(firstRender.current === true){
+            projectsLength.current = projects.length
+            if(projects.length) {
+                console.log(projects[0]?.id)
+                setActiveProject(projects[0]?.id)
+                firstRender.current = false
+            }
+        } else if(projectsLength.current !== projects.length) {
+            setActiveProject(projects[projects.length - 1]?.id)
+            projectsLength.current = projects.length
+        }
     },[projects])
 
     const handleActiveProject = (projectId) => {
@@ -49,6 +58,11 @@ function HomePage() {
     const handleActiveChannel = (channelId) => {
         setActiveChannel(channelId)
     };
+
+    const initialClickSetter = (e) => {
+        initialClick.current = e.target
+        console.log(initialClick.current)
+    }
 
     useEffect(() => {
         socket = io();
@@ -66,17 +80,26 @@ function HomePage() {
         });
     }, [dispatch, user.id, user.username]);
 
+    useEffect(() => {
+        window.addEventListener('mousedown', initialClickSetter)
+
+        return () => {
+            window.addEventListener('mousedown', initialClickSetter)
+        }
+    }, [])
+
     return (
         <div className='main-div'>
             <ProjectNavbar
                 handleActiveProject={handleActiveProject}
                 activeProject={activeProject}
+                initialClick={initialClick}
             />
-            <ProjectChannels activeProject={activeProject} handleActiveChannel={handleActiveChannel}/>
+            <ProjectChannels initialClick={initialClick} activeProject={activeProject} handleActiveChannel={handleActiveChannel}/>
             <div className='middle-div'>
                 <ChannelName activeChannel={activeChannel}/>
                 <div className='middle-bottom-div'>
-                    <Messages activeProject={activeProject} activeChannel={activeChannel} users={users}/>
+                    <Messages initialClick={initialClick} activeProject={activeProject} activeChannel={activeChannel} users={users}/>
                     <OnlineUsers activeProject={activeProject}/>
                 </div>
             </div>

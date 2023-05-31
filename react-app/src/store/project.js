@@ -1,6 +1,9 @@
 const GET_PROJECTS_BY_USER = '/project/GET_PROJECTS_BY_USER';
 const GET_JOINED_PROJECTS = '/project/GET_JOINED_PROJECTS';
 const GET_PROJECT_USERS = '/project/GET_PROJECT_USERS';
+const ADD_PROJECT = '/project/ADD_PROJECT';
+const REMOVE_PROJECT = '/project/REMOVE_PROJECT';
+const EDIT_PROJECT = '/project/EDIT_PROJECT';
 
 const loadUserProjects = (projects) => ({
     type: GET_PROJECTS_BY_USER,
@@ -17,6 +20,16 @@ const loadProjectUsers = (users) => ({
     users
 })
 
+const addProject = (project) => ({
+    type: ADD_PROJECT,
+    project
+})
+
+const removeProject = (projectId) => ({
+    type: REMOVE_PROJECT,
+    projectId
+})
+
 export const getUsersByProject = (projectId) => async dispatch => {
     const response = await fetch(`/api/projects/${projectId}/users`)
     if (response.ok){
@@ -31,21 +44,21 @@ export const getUsersByProject = (projectId) => async dispatch => {
     }
 }
 
-export const postProjects = (user_id, name) => async dispatch => {
+export const postProjects = (name, user_id) => async dispatch => {
     const response = await fetch('/api/projects/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user_id,
             name
         })
     });
 
     if(response.ok) {
-        dispatch(getProjectsById(user_id));
-        return 'video_url saved to database';
+        const data = await response.json()
+        dispatch(addProject(data));
+        dispatch(getJoinedProjects(user_id))
     };
 };
 
@@ -67,33 +80,84 @@ export const getJoinedProjects = (user_id) => async dispatch => {
     }
 }
 
+export const deleteProject = (projectId) => async dispatch => {
+    const response = await fetch(`/api/projects/${projectId}/delete`, {
+        method: 'DELETE'
+    })
+
+    if(response.ok){
+        dispatch(removeProject(projectId))
+    }
+}
+
+export const editProject = (projectId, name, userId) => async dispatch => {
+    const response = await fetch(`/api/projects/${projectId}/edit`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name
+        })
+    })
+
+    if(response.ok){
+        const data = await response.json()
+        dispatch(addProject(data))
+        dispatch(getJoinedProjects(userId))
+    }
+}
+
 const initialState = {
-    users: {}
+    users: {},
+    joinedProjects: {},
+    entries: {}
 };
 
 const reducer = (state = initialState, action) => {
-
     switch(action.type){
       case GET_PROJECTS_BY_USER: {
-        return {
-            ...state,
-            entries: [...action.projects.projects]
-        };
+        const newState = { ...state }
+        action.projects.projects.forEach(project => {
+            newState.entries[project.id] = project
+        })
+        return newState;
       };
       case GET_JOINED_PROJECTS: {
-          return {
-              ...state,
-              joinedProjects: [...action.joinedProjects.project_members]
-          }
+        const newState = { ...state }
+        action.joinedProjects.project_members.forEach(project_member => {
+            newState.joinedProjects[project_member.id] = project_member
+        })
+        return newState;
+        //   return {
+        //       ...state,
+        //       joinedProjects: [...action.joinedProjects.project_members]
+        //   }
       }
       case GET_PROJECT_USERS: {
-        console.log('state <-------', state)
+        // console.log('state <-------', state)
         const newState = {...state};
         newState.users = {};
         action.users.entries.forEach(user => {
             newState.users[user.id] = user;
         })
         return newState;
+      }
+      case ADD_PROJECT: {
+        const newState = { ...state }
+        newState.entries[action.project.id] = action.project
+        return newState;
+      }
+      case REMOVE_PROJECT: {
+        const newState = { ...state }
+        delete newState.entries[action.projectId]
+        delete newState.joinedProjects[action.projectId]
+        return newState;
+      }
+      case EDIT_PROJECT: {
+        const newState = { ...state }
+        newState.entries[action.project.id] = action.project
+        return newState
       }
       default: return state;
     };

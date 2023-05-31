@@ -9,11 +9,13 @@ import { authenticate } from './store/session';
 import SplashPage from './components/SplashPage';
 import Signup from './components/Signup';
 import HomePage from './components/HomePage';
+import InputTest from './components/InputTest';
+import { Input } from '@mui/material';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  console.log('app component mounted');
+  // console.log('app component mounted');
   useEffect(() => {
     (async() => {
       await dispatch(authenticate());
@@ -43,6 +45,9 @@ function App() {
         <ProtectedRoute path='/home' exact={true}>
           <HomePage/>
         </ProtectedRoute>
+        <Route path='/test' exact={true}>
+          <InputTest />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

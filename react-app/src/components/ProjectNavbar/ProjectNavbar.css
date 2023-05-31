@@ -9,10 +9,12 @@
     min-width: 70px;
     height: 100%;
     background-color: #5ec57e;
+    overflow: auto;
 }
 
 .project-planner-logo {
     margin-top: 10px;
+    margin-left: 15px;
 }
 
 .prjct-text {
@@ -48,6 +50,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
+}
+
+.single-project-container:hover > .server-icon {
+    border-radius: 35%;
+    transition: border-radius .5s;
 }
 
 .server-text {
@@ -55,3 +63,44 @@
     font-size: 20px;
     font-family: 'Barlow';
 }
+
+.new-project-icon {
+    width: 48px;
+    height: 48px;
+    border: 0px;
+    border-radius: 50%;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #b8e28a
+}
+
+.new-project-wrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.new-project-wrapper:hover {
+    cursor: pointer;
+}
+
+
+.project-name-wrapper {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    z-index: 999;
+    color: #5ec57e;
+    overflow: hidden;
+}
+
+/* .project-name-text {
+position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-wrap: 'break-word',;
+  width: 100px;
+  background: darkgreen;
+} */

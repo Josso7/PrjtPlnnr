@@ -4,23 +4,30 @@
     top: 0; */
     font-family: 'Barlow';
     font-size: 16px;
-    padding-top: 20px;
     min-width: 240px;
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
     background: #b8e28a;
     color: #5ec57e;
+    z-index: 0
 }
 
 .username-text {
     margin-left: 15px;
     font-family: 'Maragsa';
     font-size: 22px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    /* position: absolute;
+    bottom: 20px; */
 }
 
 .selected-project-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 8px;
     padding-left: 15px;
     padding-bottom: 10px;
     justify-content: space-between;
@@ -32,29 +39,46 @@
     font-family: 'Maragsa';
     font-size: 20px;
     min-width: 180px;
+    padding-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* margin-left: 10px; */
+    margin-right: auto;
 }
 
 .add-channel-button {
-    text-align: center;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* text-align: center; */
     /* padding-bottom: 10px; */
     /* margin-left: 10px; */
-    /* line-height: 30px; */
-    font-size: 30px;
+    /* line-height: 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
     box-sizing: border-box;
-    min-width: 25px;
-
+    margin-top: 4px;
+    box-sizing: border-box; */
+    /* min-width: 25px; */
+    margin-top: 8px;
+    margin-right: 17px;
+    box-sizing: border-box;
 }
 
 .add-channel-button:hover {
     cursor: pointer;
-    background: darkgreen;
-    border-radius: 10px;
+    background-color: #5ec57e;
+    border-radius: 25%;
+    color: green;
 }
 
 
 .single-channel-container {
     padding-left: 15px;
     box-sizing: border-box;
+    max-width: 240px;
 }
 
 .single-channel-container:hover {
@@ -142,8 +166,9 @@
 }
 
 .channel-selector {
-  width: 100%;
-  /* height: 25px; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 75%;
 }
 
 .channel-selector-wrapper:hover {
@@ -160,9 +185,9 @@
   position: relative;
 }
 
-.channel-settings-icon:hover {
+/* .channel-settings-icon:hover {
   color: green;
-}
+} */
 
 .channel-settings-icon:hover > .channel-settings-icon-bubble-text {
   display: block
@@ -206,7 +231,7 @@
   border-top: 8px solid #245D5A;
   position: absolute;
   right: -13px;
-  top: 15px;
+  top: 8px;
   display: block;
   z-index: 9999999;
   transform: rotate(.25turn);
@@ -223,7 +248,7 @@
   background-color: #5ec57e;
   z-index: 9999999;
   right: -85px;
-  top: -10px;
+  top: -14px;
   color: black;
   text-align: center;
   border-radius: 5px;
@@ -231,4 +256,92 @@
 
 .channel-settings-edit-button {
   padding-bottom: 5px;
+  line-height: 20px;
+}
+
+.channel-settings-delete-button {
+  padding-bottom: 5px;
+  line-height: 20px;
+}
+
+.channel-settings-edit-button:hover {
+  background-color: green;
+  border-radius: 5px;
+}
+
+.channel-settings-delete-button:hover {
+  background-color: green;
+  border-radius: 5px;
+}
+
+.channels-text {
+  font-size: 20px;
+  font-family: 'Barlow';
+  text-align: center;
+  text-decoration: underline;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48;
+}
+
+.selected-project-wrapper {
+  display: flex;
+  margin-top: 7px;
+  border-bottom:3px solid #5ec57e;
+  padding-bottom: 11px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+.channels-wrapper {
+  overflow: auto;
+  height: 85%;
+}
+
+.channel-settings-mui-icon-edit:hover {
+  cursor: pointer;
+  background-color: #5ec57e;
+  border-radius: 25%;
+  color: green;
+}
+
+.channel-settings-mui-icon-delete:hover {
+  cursor: pointer;
+  background-color: #5ec57e;
+  border-radius: 25%;
+  color: green;
+}
+
+.channels-menu-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.delete-project-button {
+  margin-right: 10px;
+}
+
+.edit-project-button:hover {
+  cursor: pointer;
+  background-color: #5ec57e;
+  border-radius: 25%;
+  color: green;
+}
+
+.delete-project-button:hover {
+  cursor: pointer;
+  background-color: #5ec57e;
+  border-radius: 25%;
+  color: green;
 }

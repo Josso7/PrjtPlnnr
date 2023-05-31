@@ -164,10 +164,10 @@ function Messages({ activeProject, activeChannel, users, initialClick }) {
             <div className="message-bottom-margin"></div>
             <div key={message.id} className="single-message-wrapper">
               <div className="user-badge-icon">
-                {userInfo.username.toUpperCase()[0]}
+                {message.user.username.toUpperCase()[0]}
               </div>
               <div className="message-text-wrapper">
-                <div className="user-username-text"> {userInfo.username} </div>
+                <div className="user-username-text"> {message.user.username} </div>
                 <div className="single-message-container">
                   {message.content}
                 </div>

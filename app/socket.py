@@ -112,10 +112,10 @@ def heartbeat_check(user):
     print('!!!!!!!!!!!!!!!!! HEARTBEAT FROM USER:', users[user['id']])
     for user in users.copy():
         if datetime.datetime.now().timestamp() - users[user]['last_online'] > 15:
-            print('!!!!!!!!!!!!!! USERS BEFORE DELETE !!!!!!!!!!!!!!!', users)
+            # print('!!!!!!!!!!!!!! USERS BEFORE DELETE !!!!!!!!!!!!!!!', users)
             emit('user_inactive', users[user], broadcast=True)
             del users[user]
-            print('!!!!!!!!!!!!!! USERS AFTER DELETE !!!!!!!!!!!!!!!', users)
+            # print('!!!!!!!!!!!!!! USERS AFTER DELETE !!!!!!!!!!!!!!!', users)
     emit('online_users', users, broadcast=True)
 
 def check_users_online():

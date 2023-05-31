@@ -1,6 +1,5 @@
-from cmath import log
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Project, Message, ProjectMembers, OnlineUsers, User, Channel, db
 from datetime import datetime
 
@@ -10,18 +9,41 @@ project_routes = Blueprint('projects', __name__)
 @login_required
 def post_project():
     data = request.json
+
     project = Project(
-        user_id = data['user_id'],
-        name = data['name']
+        user_id = current_user.get_id(),
+        name = data['name'],
+        created_at_date = datetime.utcnow(),
+        updated_at_date = datetime.utcnow()
     )
+
 
     db.session.add(project)
     db.session.commit()
 
+    project_member = ProjectMembers(
+        user_id = current_user.get_id(),
+        project_id = project.id,
+        created_at_date = datetime.utcnow(),
+        updated_at_date = datetime.utcnow()
+    )
+
+    channel = Channel(
+        project_id = project.id,
+        name = 'general',
+        created_at_date = datetime.utcnow(),
+        updated_at_date = datetime.utcnow()
+    )
+
+    db.session.add(project_member)
+    db.session.add(channel)
+    db.session.commit()
+
     return project.to_dict()
 
+
 @project_routes.route('/<int:user_id>', methods=['GET'])
-@login_required
+# @login_required
 def get_projects_by_user(user_id):
 
     projects = Project.query.filter(user_id == Project.user_id).all()
@@ -86,3 +108,26 @@ def get_project_users(project_id):
     project_members = ProjectMembers.query.filter(ProjectMembers.project_id == project_id)
     users = User.query.filter(User.id.in_(project_member.user_id for project_member in project_members))
     return { 'entries': [user.to_dict() for user in users]}
+
+@project_routes.route('/<int:project_id>/delete', methods=['DELETE'])
+@login_required
+def delete_project(project_id):
+    project = Project.query.get(project_id)
+
+    if project:
+        db.session.delete(project)
+        db.session.commit()
+        return 'project deleted'
+    return 'project not found'
+
+
+@project_routes.route('/<int:project_id>/edit', methods=['PUT'])
+@login_required
+def edit_project(project_id):
+    data = request.json
+    project = Project.query.get(project_id)
+    if project:
+        project.name = data['name']
+        db.session.commit()
+        return project.to_dict()
+    return 'Project not found'

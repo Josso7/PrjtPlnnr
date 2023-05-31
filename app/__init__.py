@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.channel_routes import channel_routes
 from .api.project_routes import project_routes
 from .api.user_routes import user_routes
+from .api.message_routes import message_routes
 from .config import Config
 from .models import User, db
 from .seeds import seed_commands
@@ -36,6 +37,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(project_routes, url_prefix='/api/projects')
 app.register_blueprint(channel_routes, url_prefix='/api/channels')
+app.register_blueprint(message_routes, url_prefix='/api/messages')
 db.init_app(app)
 Migrate(app, db)
 
@@ -78,3 +80,7 @@ def react_root(path):
 
 if __name__ == '__main__':
     socketio.run(app)
+
+# @app.errorhandler(404)
+# def not_found(e):
+#     return app.send_static_file('index.html')

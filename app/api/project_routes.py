@@ -143,3 +143,32 @@ def invite_to_project():
         db.session.commit()
         return project_invitation.to_dict()
     return {'errors': 'User has already been invited to this Project'}
+
+@project_routes.route('/invite/accept', methods=['POST'])
+# @login_required
+def accept_invitation():
+    data = request.json
+    existing_invitation = ProjectInvitation.query.filter(ProjectInvitation.user_id == data['userId'], ProjectInvitation.project_id == data['projectId']).first()
+    if existing_invitation:
+        project_member = ProjectMembers(
+            user_id = data['userId'],
+            project_id = data['projectId'],
+            created_at_date = datetime.utcnow(),
+            updated_at_date = datetime.utcnow()
+        )
+        db.session.add(project_member)
+        db.session.delete(existing_invitation)
+        db.session.commit()
+        return project_member.to_dict()
+    return {"errors:" "You aren't invited to that project"}
+
+@project_routes.route('/invite/delete', methods=['DELETE'])
+# @login_required
+def decline_invitation():
+    data = request.json
+    existing_invitation = ProjectInvitation.query.filter(ProjectInvitation.user_id == data['userId'], ProjectInvitation.project_id == data['projectId']).first()
+    if existing_invitation:
+        db.session.delete(existing_invitation)
+        db.session.commit()
+        return '', 202
+    return {'errors': 'Invitation not found'}

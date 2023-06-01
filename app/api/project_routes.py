@@ -132,10 +132,14 @@ def edit_project(project_id):
         return project.to_dict()
     return 'Project not found'
 
-@project_routes.route('/<int:project_id>/invite', methods=['POST'])
-@login_required
-def invite_to_project(project_id):
+@project_routes.route('/invite', methods=['POST'])
+# @login_required
+def invite_to_project():
     data = request.json
-    project = Project.query.get(project_id)
-
-    project.invitations.append()
+    existing_invitation = ProjectInvitation.query.filter(ProjectInvitation.user_id == data['userId'], ProjectInvitation.project_id == data['projectId']).first()
+    if not existing_invitation:
+        project_invitation = ProjectInvitation(user_id = data['userId'], project_id = data['projectId'], inviter_id = data['inviterId'])
+        db.session.add(project_invitation)
+        db.session.commit()
+        return project_invitation.to_dict()
+    return {'errors': 'User has already been invited to this Project'}

@@ -1,5 +1,6 @@
-from app.models import db, Message
 from datetime import date, datetime
+
+from app.models import Message, db
 
 
 def seed_messages():

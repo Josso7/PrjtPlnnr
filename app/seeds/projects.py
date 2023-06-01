@@ -1,5 +1,6 @@
-from app.models import db, Project
 from datetime import date, datetime
+
+from app.models import Project, db
 
 
 def seed_projects():

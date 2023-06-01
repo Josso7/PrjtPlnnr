@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Project, Message, ProjectMembers, OnlineUsers, User, Channel, db
+from app.models import Project, Message, ProjectMembers, OnlineUsers, User, Channel, ProjectInvitation, db
 from datetime import datetime
 
 project_routes = Blueprint('projects', __name__)
@@ -131,3 +131,11 @@ def edit_project(project_id):
         db.session.commit()
         return project.to_dict()
     return 'Project not found'
+
+@project_routes.route('/<int:project_id>/invite', methods=['POST'])
+@login_required
+def invite_to_project(project_id):
+    data = request.json
+    project = Project.query.get(project_id)
+
+    project.invitations.append()

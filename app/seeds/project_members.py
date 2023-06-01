@@ -1,5 +1,7 @@
-from app.models import db, ProjectMembers
 from datetime import date, datetime
+
+from app.models import ProjectMembers, db
+
 
 def seed_project_members():
     member1 = ProjectMembers(
@@ -12,7 +14,7 @@ def seed_project_members():
         user_id = 3, project_id=1, created_at_date = datetime.utcnow(), updated_at_date = datetime.utcnow()
     )
     member4 = ProjectMembers(
-        user_id = 1, project_id=2, created_at_date = datetime.utcnow(), updated_at_date = datetime.utcnow()
+        user_id = 2, project_id=2, created_at_date = datetime.utcnow(), updated_at_date = datetime.utcnow()
     )
     db.session.add(member1)
     db.session.add(member2)

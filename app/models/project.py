@@ -9,6 +9,8 @@ class Project(db.Model):
     created_at_date = db.Column(db.DateTime, nullable=False)
     updated_at_date = db.Column(db.DateTime, nullable=False)
 
+    invitations = db.relationship('ProjectInvitation', back_populates='project')
+
     def to_dict(self):
         return {
             'id': self.id,

@@ -38,12 +38,11 @@
 .selected-project-text {
     font-family: 'Maragsa';
     font-size: 20px;
-    min-width: 180px;
     padding-top: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* margin-left: 10px; */
+    margin-left: 10px;
     margin-right: auto;
 }
 
@@ -99,64 +98,7 @@
     /* display: block; */
     margin: auto;
     margin-top: 20px;
-  }
-
-  .svg-animation {
-    display: block;
-    width: 114px;
-    height: 114px;
-    margin: auto;
-    margin-top: 6px;
-  }
-
-  .bg {
-    fill: none;
-    stroke-width: 10px;
-    /* stroke: #1A2C34; */
-  }
-
-  [class^="meter-"] {
-    fill: none;
-    stroke-width: 10px;
-    stroke-linecap: round;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-
-  }
-
-  .meter-2 {
-    stroke: #5ec57e;
-    stroke-dasharray: 360;
-    stroke-dashoffset: 160;
-    animation: progress-2 .75s ease-out;
-  }
-
-  @keyframes progress-1 {
-      from {
-          stroke-dashoffset: 360;
-      }
-      to {
-          stroke-dashoffset: 100;
-      }
-  }
-
-  @keyframes progress-2 {
-    from {
-      stroke-dashoffset: 360;
-    }
-    to {
-      stroke-dashoffset: 160;
-    }
-  }
-
-  @keyframes progress-3 {
-    from {
-      stroke-dashoffset: 360;
-    }
-    to {
-      stroke-dashoffset: 250;
-    }
-  }
+}
 
 .channel-selector-wrapper {
   display: flex;
@@ -285,15 +227,6 @@
   margin-left: 10px;
 }
 
-
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48;
-}
-
 .selected-project-wrapper {
   display: flex;
   margin-top: 7px;
@@ -301,7 +234,6 @@
   padding-bottom: 11px;
   align-items: center;
   justify-content: center;
-  padding-left: 10px;
 }
 
 .channels-wrapper {
@@ -328,8 +260,12 @@
   align-items: center;
 }
 
+.edit-project-button {
+  padding: 2px;
+}
+
 .delete-project-button {
-  margin-right: 10px;
+  padding: 2px;
 }
 
 .edit-project-button:hover {
@@ -344,4 +280,15 @@
   background-color: #5ec57e;
   border-radius: 25%;
   color: green;
+}
+
+.invite-project-button:hover {
+  cursor: pointer;
+  background-color: #5ec57e;
+  border-radius: 25%;
+  color: green;
+}
+
+.invite-project-button {
+  padding: 2px;
 }

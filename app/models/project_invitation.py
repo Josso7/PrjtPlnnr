@@ -22,5 +22,5 @@ class ProjectInvitation(db.Model):
             'inviter_id': self.inviter_id,
             'project_id': self.project_id,
             'project': self.project.to_dict(),
-            'user': self.user_inviting.inviting_user_to_dict()
+            'user_inviting': self.user_inviting.inviting_user_to_dict()
         }

@@ -4,6 +4,7 @@ const GET_PROJECT_USERS = '/project/GET_PROJECT_USERS';
 const ADD_PROJECT = '/project/ADD_PROJECT';
 const REMOVE_PROJECT = '/project/REMOVE_PROJECT';
 const EDIT_PROJECT = '/project/EDIT_PROJECT';
+const ADD_JOINED_PROJECT = '/project/ADD_JOINED_PROJECT'
 
 const loadUserProjects = (projects) => ({
     type: GET_PROJECTS_BY_USER,
@@ -22,6 +23,11 @@ const loadProjectUsers = (users) => ({
 
 const addProject = (project) => ({
     type: ADD_PROJECT,
+    project
+})
+
+export const addJoinedProject = (project) => ({
+    type: ADD_JOINED_PROJECT,
     project
 })
 
@@ -61,6 +67,19 @@ export const postProjects = (name, user_id) => async dispatch => {
         dispatch(getJoinedProjects(user_id))
     };
 };
+
+export const inviteToProject = (projectId, username) => async dispatch => {
+    const response = await fetch(`/api/projects/${projectId}/invite`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(username)
+    })
+    if(response.ok){
+        const data = await response.json()
+    }
+}
 
 export const getProjectsById = (user_id) => async dispatch => {
     const response = await fetch(`/api/projects/${user_id}`);
@@ -147,6 +166,11 @@ const reducer = (state = initialState, action) => {
         const newState = { ...state }
         newState.entries[action.project.id] = action.project
         return newState;
+      }
+      case ADD_JOINED_PROJECT: {
+        const newState = {...state}
+        newState.joinedProjects[action.project.project_id] = action.project
+        return newState
       }
       case REMOVE_PROJECT: {
         const newState = { ...state }

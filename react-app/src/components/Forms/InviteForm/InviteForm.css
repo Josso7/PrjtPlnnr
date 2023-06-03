@@ -1,0 +1,52 @@
+.invite-form-wrapper {
+    position: absolute;
+    width: 500px;
+    height: 120px;
+    top: calc(50vh - 60px);
+    left: calc(50vw - 250px);
+    /* transform: translate(-50%, -50%); */
+    margin:auto;
+    border: 1px solid green;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #5ec57e;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.invite-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.invite-label {
+    font-family: 'Barlow';
+    color: black;
+    font-size: 20px;
+}
+
+.invite-form-submit {
+    display: block;
+    font-family: 'Barlow';
+    font-size: 20px;
+    background-color: #b8e28a;
+    border: solid 2px green;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#invite-form-input {
+    padding: 0px 3px;
+    width: 90%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-family: 'Barlow';
+    font-size: 20px;
+}

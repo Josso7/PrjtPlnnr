@@ -1,6 +1,9 @@
+import { addJoinedProject } from "./project";
+
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const REMOVE_INVITATION = 'session/REMOVE_INVITATION'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -9,6 +12,11 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
+})
+
+const removeInvitation = (invitationId) => ({
+  type: REMOVE_INVITATION,
+  invitationId
 })
 
 const initialState = { user: null };
@@ -24,7 +32,7 @@ export const authenticate = () => async (dispatch) => {
     if (data.errors) {
       return;
     }
-  
+
     dispatch(setUser(data));
   }
 }
@@ -40,8 +48,8 @@ export const login = (email, password) => async (dispatch) => {
       password
     })
   });
-  
-  
+
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
@@ -82,7 +90,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
       password,
     }),
   });
-  
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
@@ -97,12 +105,41 @@ export const signUp = (username, email, password) => async (dispatch) => {
   }
 }
 
+export const acceptInvitation = (invitationId) => async dispatch => {
+  const response = await fetch(`/api/projects/invites/${invitationId}/accept`, {
+      method: 'PUT'
+  })
+  if(response.ok){
+      const data = await response.json()
+      dispatch(removeInvitation(data.invitation.id))
+      dispatch(addJoinedProject(data.project))
+  }
+}
+
+export const declineInvitation = (invitationId) => async dispatch => {
+  const response = await fetch(`/api/projects/invites/${invitationId}/decline`, {
+      method: 'DELETE'
+  })
+  if(response.ok){
+      const data = await response.json()
+      dispatch(removeInvitation(data.id))
+  }
+}
+
+
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return { user: action.payload }
     case REMOVE_USER:
       return { user: null }
+      case REMOVE_INVITATION: {
+        const newState = {...state}
+        console.log(newState)
+        delete newState.user.invitations[action.invitationId]
+        return newState
+      }
     default:
       return state;
   }

@@ -20,6 +20,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
     const user = useSelector(state => state?.session?.user);
     const [showChannelForm, setShowChannelForm] = useState(false);
     const [showProjectEditForm, setShowProjectEditForm] = useState(false);
+    const [showInviteForm, setShowInviteForm] = useState(false)
     const [activeChannelSettings, setActiveChannelSettings] = useState('')
     const [channelFormType, setChannelFormType] = useState('')
     const [activeChannelObj, setActiveChannelObj] = useState(null)
@@ -129,6 +130,11 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                     <div className='selected-project-text'>
                         {joinedProjects && activeProject && joinedProjects?.find(project => project.id == activeProject)?.name}
                     </div>
+                    <span
+                    onClick={() => setShowInviteForm(true)}
+                    class="material-symbols-outlined invite-project-button" >
+                        person_add
+                    </span>
                     <EditIcon className='edit-project-button'
                         onClick={(e) => {
                             setShowProjectEditForm(true)
@@ -178,6 +184,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                     {user && `User: ` + user.username}
                 </div>
             </div>
+            {showInviteForm}
             {showChannelForm && <ChannelForm activeChannelObj={activeChannelObj} channelFormType={channelFormType} activeProject={activeProject} setShowChannelForm={setShowChannelForm} activeChannelSettings={activeChannelSettings}/>}
             {showProjectEditForm && <ProjectEditForm activeProject={activeProject} setShowProjectEditForm={setShowProjectEditForm} />}
         </>

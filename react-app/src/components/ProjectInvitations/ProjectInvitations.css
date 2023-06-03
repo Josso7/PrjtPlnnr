@@ -1,0 +1,88 @@
+.project-invitations-modal {
+    position: absolute;
+    top: calc(50vh - 300px);
+    left: calc(50vw - 300px);
+    width: 600px;
+    height: 600px;
+    background-color: lightgreen;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.single-invitation-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100px;
+    background-color: lightgreen;
+    font-family: 'Barlow';
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    /* margin-bottom: auto; */
+}
+
+.single-invitation-wrapper:hover {
+    background-color: #5ec57e;
+}
+
+.accept-invitation-button {
+    font-family: 'Barlow';
+    font-size: 20px;
+    background-color: #b8e28a;
+    border: solid 2px green;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.decline-invitation-button {
+    font-family: 'Barlow';
+    font-size: 20px;
+    background-color: rgb(238, 123, 123);
+    border: solid 2px green;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.decline-invitation-button:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+.accept-invitation-button:hover {
+    background-color: green;
+    cursor: pointer;
+}
+
+.inviting-text {
+    width: 60%;
+}
+
+.project-invitation-header {
+    font-family: 'Barlow';
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+    margin: 0;
+}
+
+#invitation-project-name {
+    color: #245D5A;
+}
+
+#invitation-username {
+    color: #245D5A;
+}
+
+#no-invitations-text {
+    font-family: 'Barlow';
+    font-size: 20px;
+}

@@ -46,6 +46,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'invitations': [invite.to_dict() for invite in self.invitations],
+            'invitations': {invite.id: invite.to_dict() for invite in self.invitations},
             'sent_invites': [sent_invite.to_dict() for sent_invite in self.sent_invites]
         }

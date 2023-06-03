@@ -132,11 +132,14 @@ def edit_project(project_id):
         return project.to_dict()
     return 'Project not found'
 
-@project_routes.route('/invite', methods=['POST'])
+@project_routes.route('/invites', methods=['POST'])
 # @login_required
 def invite_to_project():
     data = request.json
+    existing_member = ProjectMembers.query.filter(ProjectMembers.user_id == data['userId'], ProjectMembers.project_id == data['projectId']).first()
     existing_invitation = ProjectInvitation.query.filter(ProjectInvitation.user_id == data['userId'], ProjectInvitation.project_id == data['projectId']).first()
+    if existing_member:
+        return {'errors': 'User is already a member of this project'}
     if not existing_invitation:
         project_invitation = ProjectInvitation(user_id = data['userId'], project_id = data['projectId'], inviter_id = data['inviterId'])
         db.session.add(project_invitation)
@@ -144,29 +147,30 @@ def invite_to_project():
         return project_invitation.to_dict()
     return {'errors': 'User has already been invited to this Project'}
 
-@project_routes.route('/invite/accept', methods=['POST'])
+@project_routes.route('/invites/<int:invite_id>/accept', methods=['PUT'])
 # @login_required
-def accept_invitation():
-    data = request.json
-    existing_invitation = ProjectInvitation.query.filter(ProjectInvitation.user_id == data['userId'], ProjectInvitation.project_id == data['projectId']).first()
+def accept_invitation(invite_id):
+    existing_invitation = ProjectInvitation.query.get(invite_id)
+    existing_invitation_dict = existing_invitation.to_dict()
+    project_member = None
     if existing_invitation:
         project_member = ProjectMembers(
-            user_id = data['userId'],
-            project_id = data['projectId'],
+            user_id = existing_invitation.user_id,
+            project_id = existing_invitation.project_id,
             created_at_date = datetime.utcnow(),
             updated_at_date = datetime.utcnow()
         )
+        project = Project.query.get(project_member.project_id)
         db.session.add(project_member)
         db.session.delete(existing_invitation)
         db.session.commit()
-        return project_member.to_dict()
+        return {'invitation': existing_invitation_dict, 'project': project.to_dict()}
     return {"errors:" "You aren't invited to that project"}
 
-@project_routes.route('/invite/delete', methods=['DELETE'])
+@project_routes.route('/invites/<int:invite_id>/delete', methods=['DELETE'])
 # @login_required
-def decline_invitation():
-    data = request.json
-    existing_invitation = ProjectInvitation.query.filter(ProjectInvitation.user_id == data['userId'], ProjectInvitation.project_id == data['projectId']).first()
+def decline_invitation(invite_id):
+    existing_invitation = ProjectInvitation.query.get(invite_id)
     if existing_invitation:
         db.session.delete(existing_invitation)
         db.session.commit()

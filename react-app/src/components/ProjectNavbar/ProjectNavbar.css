@@ -104,3 +104,30 @@ position: absolute;
   width: 100px;
   background: darkgreen;
 } */
+
+.user-content-icon {
+    width: 48px;
+    height: 48px;
+    border: 0px;
+    border-radius: 50%;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #b8e28a;
+    margin-top: 10px;
+}
+
+.user-content-button-wrapper:hover {
+    cursor: pointer;
+}
+
+.user-content-button-wrapper:hover > .user-content-icon {
+    border-radius: 35%;
+    transition: border-radius .5s;
+}
+
+.new-project-wrapper:hover > .new-project-icon {
+    border-radius: 35%;
+    transition: border-radius .5s;
+}

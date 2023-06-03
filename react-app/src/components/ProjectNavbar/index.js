@@ -7,6 +7,7 @@ import ProjectCreateForm from '../Forms/ProjectForm/ProjectCreateForm';
 import ProjectEditForm from '../Forms/ProjectForm/ProjectEditForm';
 import { border, textAlign } from '@mui/system';
 import HoveredProjectText from './HoveredProjectText';
+import ProjectInvitation from '../ProjectInvitations';
 
 function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
 
@@ -17,6 +18,7 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
     const [showProjectForm, setShowProjectForm] = useState(false);
     const [hoveredProjectName, setHoveredProjectName] = useState('')
     const [hoveredProjectStyles, setHoveredProjectStyles] = useState({})
+    const [showProjectInvitations, setShowProjectInvitations] = useState(false)
     const hoveredProject = useRef()
     // const [showEditProjectForm, setShowEditProjectForm] = useState(false);
     // const [activeProjectObj, setActiveProjectObj] = useState(null)
@@ -70,6 +72,12 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
             if(initialClick.current.id !== "project-form-name-input"){
                 setShowProjectForm(false)
             }
+        }
+    }
+
+    const closeProjectInvitations = (e) => {
+        if(!(e.target.matches('.project-invitations-modal, .project-invitations-modal *')) && !(e.target.matches('.user-content-button-wrapper, .user-content-button-wrapper *'))) {
+            setShowProjectInvitations(false)
         }
     }
 
@@ -175,10 +183,12 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
 
     useEffect(() => {
         window.addEventListener('click', closeProjectForm);
+        window.addEventListener('click', closeProjectInvitations);
         window.addEventListener("wheel", handleScroll);
 
         return () => {
             window.removeEventListener('click', closeProjectForm);
+            window.removeEventListener('click', closeProjectInvitations);
             window.removeEventListener("wheel", handleScroll);
         }
     }, [])
@@ -190,6 +200,14 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
                     <span className='prjct-text'>Prjct </span><span className='plnnr-text'>Plnnr</span>
                 </div>
                 <div className='projects-wrapper'>
+                    <div className='user-content-button-wrapper'
+                    onClick={() => setShowProjectInvitations(true)}>
+                        <div className='user-content-icon'>
+                            <span class="material-symbols-outlined">
+                                inbox
+                            </span>
+                        </div>
+                    </div>
                     {joinedProjects && joinedProjects.map(project => (<div
                     key={project.id}
                     onClick={(e) => handleProjectClick(project.id)}
@@ -224,6 +242,7 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
                 </div>
             </div>
         } */}
+        {showProjectInvitations && <ProjectInvitation setShowProjectInvitations={setShowProjectInvitations}/>}
         {hoveredProject.current && <HoveredProjectText hoveredProjectName={hoveredProjectName} hoveredProjectStyles={hoveredProjectStyles}/>}
         {/* {hoveredProject.current && displayHoveredProject} */}
         </>

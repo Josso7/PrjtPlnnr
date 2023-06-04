@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import Project, Message, ProjectMembers, OnlineUsers, User, Channel, ProjectInvitation, db
 from datetime import datetime
+from sqlalchemy import func
 
 project_routes = Blueprint('projects', __name__)
 
@@ -132,16 +133,21 @@ def edit_project(project_id):
         return project.to_dict()
     return 'Project not found'
 
-@project_routes.route('/invites', methods=['POST'])
+@project_routes.route('/<int:project_id>/invite', methods=['POST'])
 # @login_required
-def invite_to_project():
+def invite_to_project(project_id):
     data = request.json
-    existing_member = ProjectMembers.query.filter(ProjectMembers.user_id == data['userId'], ProjectMembers.project_id == data['projectId']).first()
-    existing_invitation = ProjectInvitation.query.filter(ProjectInvitation.user_id == data['userId'], ProjectInvitation.project_id == data['projectId']).first()
+    print(data)
+    user = User.query.filter(func.lower(User.username) == data['username'].lower()).first()
+    # add future validation if inviting permissions are not allowed for every project member
+    if not user:
+        return {'errors': 'That user does not exist'}
+    existing_member = ProjectMembers.query.filter(ProjectMembers.user_id == user.id, ProjectMembers.project_id == project_id).first()
+    existing_invitation = ProjectInvitation.query.filter(ProjectInvitation.user_id == user.id, ProjectInvitation.project_id == project_id).first()
     if existing_member:
         return {'errors': 'User is already a member of this project'}
     if not existing_invitation:
-        project_invitation = ProjectInvitation(user_id = data['userId'], project_id = data['projectId'], inviter_id = data['inviterId'])
+        project_invitation = ProjectInvitation(user_id = user.id, project_id = project_id, inviter_id = data['inviterId'])
         db.session.add(project_invitation)
         db.session.commit()
         return project_invitation.to_dict()
@@ -167,7 +173,7 @@ def accept_invitation(invite_id):
         return {'invitation': existing_invitation_dict, 'project': project.to_dict()}
     return {"errors:" "You aren't invited to that project"}
 
-@project_routes.route('/invites/<int:invite_id>/delete', methods=['DELETE'])
+@project_routes.route('/invites/<int:invite_id>/decline', methods=['DELETE'])
 # @login_required
 def decline_invitation(invite_id):
     existing_invitation = ProjectInvitation.query.get(invite_id)

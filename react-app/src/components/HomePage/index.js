@@ -95,7 +95,7 @@ function HomePage() {
                 activeProject={activeProject}
                 initialClick={initialClick}
             />
-            <ProjectChannels initialClick={initialClick} activeProject={activeProject} handleActiveChannel={handleActiveChannel}/>
+            <ProjectChannels initialClick={initialClick} activeProject={activeProject} handleActiveChannel={handleActiveChannel} />
             <div className='middle-div'>
                 <ChannelName activeChannel={activeChannel}/>
                 <div className='middle-bottom-div'>

@@ -68,13 +68,13 @@ export const postProjects = (name, user_id) => async dispatch => {
     };
 };
 
-export const inviteToProject = (projectId, username) => async dispatch => {
+export const inviteToProject = (projectId, inviterId, username) => async dispatch => {
     const response = await fetch(`/api/projects/${projectId}/invite`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(username)
+        body: JSON.stringify({inviterId, username})
     })
     if(response.ok){
         const data = await response.json()

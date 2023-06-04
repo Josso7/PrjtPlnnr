@@ -11,6 +11,7 @@ import ChannelForm from '../Forms/ChannelForm';
 import ProjectEditForm from '../Forms/ProjectForm/ProjectEditForm';
 import SingleProjectChannel from './SingleProjectChannel';
 import { io } from 'socket.io-client';
+import InviteForm from '../Forms/InviteForm/InviteForm';
 
 function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
 
@@ -25,44 +26,19 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
     const [channelFormType, setChannelFormType] = useState('')
     const [activeChannelObj, setActiveChannelObj] = useState(null)
     const [showChannelSettings, setShowChannelSettings] = useState(false)
-    // const initialClick = useRef(null)
 
     useEffect(() => {
         if(user)dispatch(getProjectsById(user.id))
         dispatch(getChannelsByProjectId(activeProject))
     },[user])
 
-    // useEffect(() => {
-    //     handleActiveChannel(activeChannel);
-
-    // },[activeChannel])
-
     useEffect(() => {
         setActiveChannelObj(channels?.find(channel => channel.id === activeChannelSettings))
     },[activeChannelSettings])
 
-    // useEffect(() => {
-    //     if(channelsObj){
-    //         channels = Object.values(channelsObj)
-    //         console.log(channels, 'channels')
-    //     }
-    // }, [channelsObj])
-
     const deleteProjectHandler = () => {
         dispatch(deleteProject(activeProject))
     }
-
-    // const closeChannelSettingsMenu = (e) => {
-    //     // console.log('yo')
-    //     if(e.target.className !== 'channel-settings-options-bubble-text' && !(e.target.matches('.channel-settings-icon, .channel-settings-icon *'))) {
-    //         setShowChannelSettings(false)
-    //     }
-    //     if(e.target.className !== 'channel-settings-options-bubble-text' && !(e.target.matches('.channel-form-wrapper, .channel-form-wrapper *')) && !(e.target.matches('.channel-settings-icon, .channel-settings-icon *')) && !(e.target.matches('.channel-settings-edit-button, .channel-settings-edit-button *'))){
-    //         setActiveChannelSettings('')
-    //         // console.log('inside 1st if statement')
-    //         // console.log(e.target)
-    //     }
-    // }
 
     const closeChannelForm = (e) => {
         if(!(e.target.matches('.channel-form-wrapper, .channel-form-wrapper *')) && !(e.target.matches('.channel-settings-icon, .channel-settings-icon *')) && !(e.target.matches('.add-channel-button, .add-channel-button *'))) {
@@ -73,25 +49,26 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
         }
     }
 
+    const closeInviteForm = (e) => {
+        if(!(e.target.matches('.invite-form-wrapper, .invite-form-wrapper *')) && !(e.target.matches('.invite-project-button, .invite-project-button *'))) {
+            if(initialClick.current.id !== "invite-form-input"){
+                setShowInviteForm(false)
+            }
+        }
+    }
+
     const closeEditProjectForm = (e) => {
-        // e.preventDefault();
-        // e.stopPropagation();
         if(!(e.target.matches('.project-form-wrapper, .project-form-wrapper *')) && !(e.target.matches('.selected-project-wrapper, .selected-project-wrapper *' ))) {
             console.log(initialClick)
             if(initialClick.current.id !== "project-form-name-input"){
                 setShowProjectEditForm(false)
             }
         }
-        // if(!(initialState.matches(('.project-form-wrapper, .project-form-wrapper *'))) && !(initialState.matches('.selected-project-wrapper, .selected-project-wrapper *' ))){
-        //     setShowProjectEditForm(false)
-        // }
     }
 
     const initialClickSetter = (e) => {
         console.log(window.getSelection())
         console.log(e)
-        // e.preventDefault();
-        // e.stopPropagation();
         initialClick.current = e.target
         console.log(initialClick.current)
     }
@@ -101,13 +78,13 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
     useEffect(() => {
         window.addEventListener('mousedown', initialClickSetter)
         window.addEventListener('mouseup', closeEditProjectForm)
-        // window.addEventListener('click', closeChannelSettingsMenu)
+        window.addEventListener('mouseup', closeInviteForm)
         window.addEventListener('click', closeChannelForm)
 
         return () => {
             window.addEventListener('mousedown', initialClickSetter)
             window.removeEventListener('mouseup', closeEditProjectForm)
-            // window.removeEventListener('click', closeChannelSettingsMenu)
+            window.removeEventListener('mouseup', closeInviteForm)
             window.removeEventListener('click', closeChannelForm)
         }
     }, [])
@@ -184,7 +161,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                     {user && `User: ` + user.username}
                 </div>
             </div>
-            {showInviteForm}
+            {showInviteForm && <InviteForm setShowInviteForm={setShowInviteForm} activeProject={activeProject}/>}
             {showChannelForm && <ChannelForm activeChannelObj={activeChannelObj} channelFormType={channelFormType} activeProject={activeProject} setShowChannelForm={setShowChannelForm} activeChannelSettings={activeChannelSettings}/>}
             {showProjectEditForm && <ProjectEditForm activeProject={activeProject} setShowProjectEditForm={setShowProjectEditForm} />}
         </>

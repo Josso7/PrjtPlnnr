@@ -41,9 +41,9 @@ function ChatInput({activeChannel, socket}) {
           <form autoComplete="off" className="chat-form" onSubmit={postMessage}>
             <textarea
               className="chat-input"
-              value={chatInput}
+              value={currentChannel && chatInput || ''}
               onChange={(e) => handleInput(e)}
-              placeholder={`Message #${currentChannel && currentChannel.name}`}
+              placeholder={currentChannel && `Message #${currentChannel && currentChannel.name}` || 'Join/create a project to start chatting!'}
               onKeyPress={(e) =>
                 e.key === "Enter" && !e.shiftKey && postMessage(e)
               }

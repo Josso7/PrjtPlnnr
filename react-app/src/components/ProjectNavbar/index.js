@@ -8,6 +8,8 @@ import ProjectEditForm from '../Forms/ProjectForm/ProjectEditForm';
 import { border, textAlign } from '@mui/system';
 import HoveredProjectText from './HoveredProjectText';
 import ProjectInvitation from '../ProjectInvitations';
+import InviteHoverText from './InviteHoverText';
+import AddProjectHoverText from './AddProjectHoverText';
 
 function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
 
@@ -19,7 +21,13 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
     const [hoveredProjectName, setHoveredProjectName] = useState('')
     const [hoveredProjectStyles, setHoveredProjectStyles] = useState({})
     const [showProjectInvitations, setShowProjectInvitations] = useState(false)
+    const [showInviteHoverText, setInviteHoverText] = useState(false)
+    const [showAddProjectHoverText, setAddProjectHoverText] = useState(false)
+    const [inviteHoverTextStyles, setInviteHoverTextStyles] = useState({})
+    const [addProjectHoverTextStyles, setAddProjectHoverTextStyles] = useState({})
     const hoveredProject = useRef()
+    const invitesRef = useRef()
+    const newProjectRef = useRef()
     // const [showEditProjectForm, setShowEditProjectForm] = useState(false);
     // const [activeProjectObj, setActiveProjectObj] = useState(null)
 
@@ -182,6 +190,47 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
     }
 
     useEffect(() => {
+        console.log(newProjectRef)
+        setAddProjectHoverTextStyles({
+            position: 'absolute',
+            top: newProjectRef.current.getBoundingClientRect().y + 3,
+            left: newProjectRef.current.getBoundingClientRect().x + 60,
+            zIndex: 999,
+            width: '100px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '40px',
+            backgroundColor: 'darkgreen',
+            overflowWrap: 'anywhere',
+            overflow: 'hidden',
+            paddingLeft: '15px',
+            paddingRight: '15px',
+            borderRadius: '20px'
+        })
+
+        setInviteHoverTextStyles({
+            position: 'absolute',
+            top: invitesRef.current.getBoundingClientRect().y + 3,
+            left: invitesRef.current.getBoundingClientRect().x + 60,
+            zIndex: 999,
+            width: '100px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '40px',
+            backgroundColor: 'darkgreen',
+            overflowWrap: 'anywhere',
+            overflow: 'hidden',
+            paddingLeft: '15px',
+            paddingRight: '15px',
+            borderRadius: '20px'
+        })
+
+    }, [newProjectRef?.current?.offsetTop])
+
+    useEffect(() => {
+
         window.addEventListener('click', closeProjectForm);
         window.addEventListener('click', closeProjectInvitations);
         window.addEventListener("wheel", handleScroll);
@@ -200,7 +249,9 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
                     <span className='prjct-text'>Prjct </span><span className='plnnr-text'>Plnnr</span>
                 </div>
                 <div className='projects-wrapper'>
-                    <div className='user-content-button-wrapper'
+                    <div ref={invitesRef} className='user-content-button-wrapper'
+                    onMouseEnter={() => setInviteHoverText(true)}
+                    onMouseLeave={() => setInviteHoverText(false)}
                     onClick={() => setShowProjectInvitations(true)}>
                         <div className='user-content-icon'>
                             <span class="material-symbols-outlined">
@@ -226,8 +277,10 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
                         </div>
                     </div>))}
                     <div className='new-project-wrapper'
-                    onClick={() => handleCreateProject()}>
-                        <div className='new-project-icon'>
+                    onClick={() => handleCreateProject()}
+                    onMouseEnter={() => setAddProjectHoverText(true)}
+                    onMouseLeave={() => setAddProjectHoverText(false)}>
+                        <div ref={newProjectRef} className='new-project-icon'>
                             <span class="material-symbols-outlined">add</span>
                         </div>
                     </div>
@@ -242,6 +295,8 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
                 </div>
             </div>
         } */}
+        {showInviteHoverText && <InviteHoverText inviteHoverTextStyles={inviteHoverTextStyles}/>}
+        {showAddProjectHoverText && <AddProjectHoverText addProjectHoverTextStyles={addProjectHoverTextStyles}/>}
         {showProjectInvitations && <ProjectInvitation setShowProjectInvitations={setShowProjectInvitations}/>}
         {hoveredProject.current && <HoveredProjectText hoveredProjectName={hoveredProjectName} hoveredProjectStyles={hoveredProjectStyles}/>}
         {/* {hoveredProject.current && displayHoveredProject} */}

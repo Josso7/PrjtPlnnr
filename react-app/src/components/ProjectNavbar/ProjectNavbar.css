@@ -135,3 +135,7 @@ position: absolute;
 .mui-west-icon {
     color: red;
 }
+
+.project-name-full-arrow {
+    display: none;
+}

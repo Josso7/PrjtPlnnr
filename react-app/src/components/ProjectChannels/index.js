@@ -120,19 +120,19 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                     <div className='selected-project-text'>
                         {joinedProjects && activeProject && joinedProjects?.find(project => project.id == activeProject)?.name || 'Create a Project!'}
                     </div>
-                    <span
+                    {joinedProjects.length && <span
                     onClick={() => setShowInviteForm(true)}
                     class="material-symbols-outlined invite-project-button" >
                         person_add
-                    </span>
+                    </span> || ''}
                     {user?.id === activeProjectObj?.user_id && <EditIcon className='edit-project-button'
                         onClick={(e) => {
                             setShowProjectEditForm(true)
                         }}
                     />}
-                    {user?.id !== activeProjectObj?.user_id &&
+                    {user?.id !== activeProjectObj?.user_id && joinedProjects.length &&
                     <WestIcon className='mui-west-icon'
-                    onClick={() => handleLeaveServer()}/>}
+                    onClick={() => handleLeaveServer()}/> || ''}
                     {user?.id === activeProjectObj?.user_id &&
                     <DeleteIcon className='delete-project-button'
                     onClick={(e) => deleteProjectHandler(e)}

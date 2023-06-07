@@ -153,6 +153,15 @@ def invite_to_project(project_id):
         return project_invitation.to_dict()
     return {'errors': 'User has already been invited to this Project'}
 
+@project_routes.route('/<int:project_id>/leave', methods=['DELETE'])
+def leave_project(project_id):
+    user_id = current_user.get_id()
+    project_member = ProjectMembers.query.filter(ProjectMembers.user_id == user_id, ProjectMembers.project_id == project_id).first()
+    if project_member:
+        db.session.delete(project_member)
+        db.session.commit()
+        return project_member.to_dict()
+
 @project_routes.route('/invites/<int:invite_id>/accept', methods=['PUT'])
 # @login_required
 def accept_invitation(invite_id):

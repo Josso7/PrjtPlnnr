@@ -8,9 +8,9 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 
 from .api.auth_routes import auth_routes
 from .api.channel_routes import channel_routes
+from .api.message_routes import message_routes
 from .api.project_routes import project_routes
 from .api.user_routes import user_routes
-from .api.message_routes import message_routes
 from .config import Config
 from .models import User, db
 from .seeds import seed_commands

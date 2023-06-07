@@ -131,3 +131,7 @@ position: absolute;
     border-radius: 35%;
     transition: border-radius .5s;
 }
+
+.mui-west-icon {
+    color: red;
+}

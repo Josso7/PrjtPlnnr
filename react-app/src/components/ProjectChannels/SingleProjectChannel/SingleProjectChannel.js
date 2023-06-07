@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteChannel } from '../../../store/channel'
 
 function SingleProjectChannel({ handleActiveChannel, channel, setShowChannelSettings, showChannelSettings, setActiveChannel, activeChannelSettings, setChannelFormType, setActiveChannelSettings, setShowChannelForm }){

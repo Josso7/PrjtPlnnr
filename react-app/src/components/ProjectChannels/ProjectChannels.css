@@ -292,3 +292,15 @@
 .invite-project-button {
   padding: 2px;
 }
+
+.mui-west-icon {
+  padding: 2px;
+  margin-right: 2px;
+}
+
+.mui-west-icon:hover {
+  cursor: pointer;
+  background-color: red;
+  border-radius: 25%;
+  color: white;
+}

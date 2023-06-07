@@ -1,7 +1,7 @@
 import './ProjectChannels.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
-import { getProjectsById } from '../../store/project'
+import { getProjectsById, leaveProject } from '../../store/project'
 import { getChannelsByProjectId, postChannels } from '../../store/channel';
 import { deleteProject } from '../../store/project';
 import { createPortal } from 'react-dom';
@@ -12,13 +12,16 @@ import ProjectEditForm from '../Forms/ProjectForm/ProjectEditForm';
 import SingleProjectChannel from './SingleProjectChannel';
 import { io } from 'socket.io-client';
 import InviteForm from '../Forms/InviteForm/InviteForm';
+import WestIcon from '@mui/icons-material/West';
 
 function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
 
     const dispatch = useDispatch();
+    const projects = useSelector(state => Object.values(state.projects.entries))
     const joinedProjects = useSelector(state => Object.values(state?.projects?.joinedProjects));
     const channels = useSelector(state => Object.values(state?.channels?.entries));
     const user = useSelector(state => state?.session?.user);
+    const [activeProjectObj, setActiveProjectObj] = useState('')
     const [showChannelForm, setShowChannelForm] = useState(false);
     const [showProjectEditForm, setShowProjectEditForm] = useState(false);
     const [showInviteForm, setShowInviteForm] = useState(false)
@@ -73,6 +76,10 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
         console.log(initialClick.current)
     }
 
+    const handleLeaveServer = () => {
+        dispatch(leaveProject(activeProject))
+    }
+
 
 
     useEffect(() => {
@@ -88,6 +95,12 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
             window.removeEventListener('click', closeChannelForm)
         }
     }, [])
+
+    useEffect(() => {
+        if(projects.length){
+            setActiveProjectObj(projects.find(project => project.id === activeProject))
+        }
+    }, [projects])
 
     return (
         <>
@@ -117,9 +130,13 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                             setShowProjectEditForm(true)
                         }}
                     />
+                    {user?.id !== activeProjectObj?.user_id &&
+                    <WestIcon className='mui-west-icon'
+                    onClick={() => handleLeaveServer()}/>}
+                    {user?.id === activeProjectObj?.user_id &&
                     <DeleteIcon className='delete-project-button'
                     onClick={(e) => deleteProjectHandler(e)}
-                    />
+                    />}
                 </div>
                 {/* <div className='selected-project-container'> */}
 

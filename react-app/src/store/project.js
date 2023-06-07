@@ -109,6 +109,18 @@ export const deleteProject = (projectId) => async dispatch => {
     }
 }
 
+export const leaveProject = (projectId) => async dispatch => {
+    const response = await fetch(`/api/projects/${projectId}/leave`, {
+        method: 'DELETE'
+    })
+
+    if(response.ok){
+        const data = await response.json()
+        dispatch(removeProject(data.project_id))
+    }
+}
+
+
 export const editProject = (projectId, name, userId) => async dispatch => {
     const response = await fetch(`/api/projects/${projectId}/edit`, {
         method: 'PUT',

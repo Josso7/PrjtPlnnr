@@ -111,6 +111,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   width: 75%;
+  min-height: 27px;
 }
 
 .channel-selector-wrapper:hover {

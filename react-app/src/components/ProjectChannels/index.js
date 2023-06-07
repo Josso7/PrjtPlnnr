@@ -125,11 +125,11 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                     class="material-symbols-outlined invite-project-button" >
                         person_add
                     </span>
-                    <EditIcon className='edit-project-button'
+                    {user?.id === activeProjectObj?.user_id && <EditIcon className='edit-project-button'
                         onClick={(e) => {
                             setShowProjectEditForm(true)
                         }}
-                    />
+                    />}
                     {user?.id !== activeProjectObj?.user_id &&
                     <WestIcon className='mui-west-icon'
                     onClick={() => handleLeaveServer()}/>}
@@ -172,7 +172,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                 </div>
                 <div className='channels-wrapper'>
                 {channels && channels.map(channel => (
-                    <SingleProjectChannel setShowChannelSettings={setShowChannelSettings} showChannelSettings={showChannelSettings} channel={channel} setChannelFormType={setChannelFormType} activeChannelSettings={activeChannelSettings} setActiveChannelSettings={setActiveChannelSettings} setShowChannelForm={setShowChannelForm} handleActiveChannel={handleActiveChannel} />
+                    <SingleProjectChannel activeProjectObj={activeProjectObj} setShowChannelSettings={setShowChannelSettings} showChannelSettings={showChannelSettings} channel={channel} setChannelFormType={setChannelFormType} activeChannelSettings={activeChannelSettings} setActiveChannelSettings={setActiveChannelSettings} setShowChannelForm={setShowChannelForm} handleActiveChannel={handleActiveChannel} />
                 ))}
                 </div>
                 <div className='username-text'>

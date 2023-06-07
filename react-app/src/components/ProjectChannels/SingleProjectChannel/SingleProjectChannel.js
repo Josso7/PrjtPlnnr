@@ -7,10 +7,10 @@ import { createPortal } from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteChannel } from '../../../store/channel'
 
-function SingleProjectChannel({ handleActiveChannel, channel, setShowChannelSettings, showChannelSettings, setActiveChannel, activeChannelSettings, setChannelFormType, setActiveChannelSettings, setShowChannelForm }){
+function SingleProjectChannel({ activeProjectObj, handleActiveChannel, channel, setShowChannelSettings, showChannelSettings, setActiveChannel, activeChannelSettings, setChannelFormType, setActiveChannelSettings, setShowChannelForm }){
 
     // const [channelMenuOpen, setChannelMenuOpen] = useState(false);
-
+    const user = useSelector(state => state.session.user)
     const dispatch = useDispatch();
 
     // const openChannelSettings = (e, channelId) => {
@@ -56,10 +56,10 @@ function SingleProjectChannel({ handleActiveChannel, channel, setShowChannelSett
                 </div>
                 <div className='channel-settings-icon'>
                     {/* <SettingsIcon className='channel-settings-mui-icon'/> */}
-                    <EditIcon className='channel-settings-mui-icon-edit'
-                    onClick={(e) => editChannel(e, channel.id)}/>
-                    <DeleteIcon className='channel-settings-mui-icon-delete'
-                    onClick={(e) => deleteChannelHandler(e)} />
+                    {user.id === activeProjectObj?.user_id && <EditIcon className='channel-settings-mui-icon-edit'
+                    onClick={(e) => editChannel(e, channel.id)}/>}
+                    {user.id === activeProjectObj?.user_id && <DeleteIcon className='channel-settings-mui-icon-delete'
+                    onClick={(e) => deleteChannelHandler(e)} />}
                     {/* <div className='channel-settings-icon-bubble-text'>
                         Settings
                     </div>

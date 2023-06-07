@@ -77,7 +77,7 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
 
     const closeProjectForm = (e) => {
         if(!(e.target.matches('.project-form-wrapper, .project-form-wrapper *')) && !(e.target.matches('.new-project-wrapper, .new-project-wrapper *'))) {
-            if(initialClick.current.id !== "project-form-name-input"){
+            if(initialClick?.current?.id !== "project-form-name-input"){
                 setShowProjectForm(false)
             }
         }

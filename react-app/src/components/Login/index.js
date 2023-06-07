@@ -27,6 +27,15 @@ function Login(){
         if(errors.length === 0) history.push('/home');
     }
 
+    const handleDemoLogin = async (e) => {
+        e.preventDefault();
+        const data = await dispatch(login("demo@aa.io", "password"));
+        if (data) {
+          setErrors(data);
+        }
+        if(errors.length === 0) history.push('/home');
+    }
+
     return (
         <>
         <form
@@ -68,6 +77,14 @@ function Login(){
             type='submit'
             className='login-submit-button'>
                 LOGIN
+            </button>
+            </div>
+            <div className='login-submit-button-container'>
+            <button
+            type='submit'
+            onClick={(e) => handleDemoLogin(e)}
+            className='login-submit-button'>
+                DEMO LOGIN
             </button>
             </div>
         </form>

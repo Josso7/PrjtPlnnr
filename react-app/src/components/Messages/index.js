@@ -74,7 +74,7 @@ function Messages({ activeProject, activeChannel, users, initialClick }) {
 
   const closeMessageEditForm = (e) => {
     if(!(e.target.matches('.edit-message-form, .edit-message-form *, .comment-menu-dropdown-content, .comment-menu-dropdown-content *'))){
-      if(initialClick.current.id !== "message-form-input"){
+      if(initialClick?.current?.id !== "message-form-input"){
         setShowEditMessageForm(false)
         setActiveEditMessage('')
       }

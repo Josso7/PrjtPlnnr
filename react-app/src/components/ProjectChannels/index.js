@@ -14,6 +14,7 @@ import { io } from 'socket.io-client';
 import InviteForm from '../Forms/InviteForm/InviteForm';
 import WestIcon from '@mui/icons-material/West';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { logout } from '../../store/session';
 
 function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
 
@@ -47,7 +48,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
     const closeChannelForm = (e) => {
         if(!(e.target.matches('.channel-form-wrapper, .channel-form-wrapper *')) && !(e.target.matches('.channel-settings-icon, .channel-settings-icon *')) && !(e.target.matches('.add-channel-button, .add-channel-button *'))) {
             // setShowChannelForm(false)
-            if(initialClick.current.id !== "channel-form-name-input"){
+            if(initialClick?.current?.id !== "channel-form-name-input"){
                 setShowChannelForm(false)
             }
         }
@@ -67,6 +68,10 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                 setShowProjectEditForm(false)
             }
         }
+    }
+
+    const handleLogout = () => {
+        dispatch(logout())
     }
 
     const initialClickSetter = (e) => {
@@ -175,7 +180,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                     <div className='username-text'>
                         {user && `User: ` + user.username}
                     </div>
-                    <LogoutIcon className='user-logout-button'/>
+                    <LogoutIcon onClick={() => handleLogout()} className='user-logout-button'/>
                 </div>
             </div>
             {showInviteForm && <InviteForm setShowInviteForm={setShowInviteForm} activeProject={activeProject}/>}

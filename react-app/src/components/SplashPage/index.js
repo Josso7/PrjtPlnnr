@@ -16,14 +16,7 @@ function SplashPage(){
     return (
         <>
         <div className='top-bar-container'>
-            <div className='new-project-button'>
-            {
-            // this will open a modal
-            }
-                NEW PROJECT
-            </div>
-
-            <NavLink className='projects-button' to='/projects'>
+            <NavLink className='projects-button' to='/home'>
                 <div className='my-projects-button'>
                     MY PROJECTS
                 </div>

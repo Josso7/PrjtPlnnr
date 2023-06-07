@@ -211,7 +211,7 @@ function Messages({ activeProject, activeChannel, users, initialClick }) {
     <>
       <div className="messages-wrapper">
         <div className="messages-container">
-          {messages && users && formatMessages(messages, users)}
+          {messages.length && users && formatMessages(messages, users) || <div className="empty-project-text"> Join a Project to start chatting!</div>}
           <div ref={chatBoxEnd}></div>
         </div>
         <ChatInput activeChannel={activeChannel} socket={socket}/>

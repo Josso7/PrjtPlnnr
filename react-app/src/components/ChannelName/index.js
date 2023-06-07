@@ -8,7 +8,7 @@ function ChannelName({ activeChannel }) {
 
     return(
         <div className='channel-name-container'>
-            <div className='channel-name-text'><span id='channel-name-hashtag'>#</span>{currentChannel && currentChannel.name}</div>
+            {channels.length && <div className='channel-name-text'><span id='channel-name-hashtag'>#</span>{currentChannel && currentChannel.name}</div> || ''}
         </div>
     )
 }

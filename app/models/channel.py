@@ -1,14 +1,17 @@
 from .db import db
 
+
 class Channel(db.Model):
     __tablename__ = 'channels'
 
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey("projects.id"), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     # channel_type = db.Column(db.String(100), nullable=False)
     created_at_date = db.Column(db.DateTime, nullable=False)
     updated_at_date = db.Column(db.DateTime, nullable=False)
+
+    projects = db.relationship("Project", back_populates='channels')
 
     def to_dict(self):
         return {

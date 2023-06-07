@@ -118,7 +118,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                 {/* </div> */}
                 <div className='selected-project-wrapper'>
                     <div className='selected-project-text'>
-                        {joinedProjects && activeProject && joinedProjects?.find(project => project.id == activeProject)?.name}
+                        {joinedProjects && activeProject && joinedProjects?.find(project => project.id == activeProject)?.name || 'Create a Project!'}
                     </div>
                     <span
                     onClick={() => setShowInviteForm(true)}
@@ -156,10 +156,11 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
 
                 {/* </div> */}
                 <div className='channels-menu-wrapper'>
-                    <div className='channels-text'>
+                    {channels.length && <div className='channels-text'>
                         Channels
-                    </div>
-                    <div className='add-channel-button'
+                    </div> || <div className='empty-channels-text'> Join a Project to see some channels! </div>}
+
+                    {channels.length && <div className='add-channel-button'
                         onClick={(e) => {
                             console.log('show channel form')
                             setShowChannelForm(true)
@@ -167,7 +168,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                             setActiveChannelObj(null)
                         }}>
                         <span class="material-symbols-outlined">add</span>
-                    </div>
+                    </div> || ''}
                 </div>
                 <div className='channels-wrapper'>
                 {channels && channels.map(channel => (

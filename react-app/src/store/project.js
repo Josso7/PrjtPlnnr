@@ -1,3 +1,5 @@
+import { resetChannels } from "./channel";
+
 const GET_PROJECTS_BY_USER = '/project/GET_PROJECTS_BY_USER';
 const GET_JOINED_PROJECTS = '/project/GET_JOINED_PROJECTS';
 const GET_PROJECT_USERS = '/project/GET_PROJECT_USERS';
@@ -106,6 +108,7 @@ export const deleteProject = (projectId) => async dispatch => {
 
     if(response.ok){
         dispatch(removeProject(projectId))
+        dispatch(resetChannels())
     }
 }
 

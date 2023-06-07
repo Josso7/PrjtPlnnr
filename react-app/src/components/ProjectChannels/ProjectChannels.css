@@ -304,3 +304,7 @@
   border-radius: 25%;
   color: white;
 }
+
+.empty-channels-text {
+  text-align: center;
+}

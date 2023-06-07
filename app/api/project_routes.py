@@ -1,8 +1,11 @@
-from flask import Blueprint, request
-from flask_login import login_required, current_user
-from app.models import Project, Message, ProjectMembers, OnlineUsers, User, Channel, ProjectInvitation, db
 from datetime import datetime
+
+from flask import Blueprint, request
+from flask_login import current_user, login_required
 from sqlalchemy import func
+
+from app.models import (Channel, Message, OnlineUsers, Project,
+                        ProjectInvitation, ProjectMembers, User, db)
 
 project_routes = Blueprint('projects', __name__)
 

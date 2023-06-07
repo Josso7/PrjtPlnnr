@@ -17,7 +17,7 @@ function MessageForm({ setShowEditMessageForm, message }) {
     return (
         <div className='modal-overlay'>
             <div className='message-form-wrapper'>
-                <form className="edit-message-form" onSubmit={(e) => handleSubmit(e)}>
+                <form autocomplete="off" className="edit-message-form" onSubmit={(e) => handleSubmit(e)}>
                     <div className='edit-message-input-wrapper'>
                         <label className='message-form-label'> Edit Message: </label>
                         <textarea id='message-form-input' className='edit-message-input' type='text' value={messageContent} onChange={(e) => setMessageContent(e.target.value)}></textarea>

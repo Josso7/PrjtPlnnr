@@ -2,6 +2,7 @@ const GET_CHANNELS_BY_PROJECT = '/channels/GET_CHANNELS_BY_PROJECT';
 const LOAD_CHANNEL = '/channels/LOAD_CHANNEL'
 const DELETE_CHANNEL = '/channels/DELETE_CHANNEL'
 const ADD_CHANNEL = '/channels/ADD_CHANNEL'
+const RESET_CHANNELS = '/channels/RESET_CHANNELS'
 
 const loadUserChannels = (channels) => ({
     type: GET_CHANNELS_BY_PROJECT,
@@ -23,7 +24,9 @@ const addChannel = (channel) => ({
     channel
 })
 
-
+export const resetChannels = () => ({
+    type: RESET_CHANNELS
+})
 
 export const deleteChannel = (channelId) => async dispatch => {
     const response = await fetch(`/api/channels/${channelId}/delete`, {
@@ -106,6 +109,10 @@ const reducer = (state = initialState, action) => {
         const newState = { ...state }
         newState.entries[action.channel.id] = action.channel
         return newState;
+      }
+      case RESET_CHANNELS: {
+        const newState = { entries: {}}
+        return newState
       }
       default: return state;
     };

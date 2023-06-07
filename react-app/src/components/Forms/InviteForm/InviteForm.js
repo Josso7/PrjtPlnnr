@@ -24,7 +24,7 @@ function InviteForm({ setShowInviteForm, activeProject }) {
                             <div className='channel-form-error'>{error}</div>
                         )
                     })} */}
-                    <form className='invite-form' onSubmit={(e) => handleSubmit(e)}>
+                    <form autocomplete="off" className='invite-form' onSubmit={(e) => handleSubmit(e)}>
                         <label className='invite-label' for='invite-form-input'> Enter a username: </label>
                         <input id='invite-form-input' type='text'onChange={(e) => setName(e.target.value)} value={name}/>
                         <button className='invite-form-submit' type='submit'> Send Invite </button>

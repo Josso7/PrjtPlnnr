@@ -47,7 +47,7 @@ function ChannelForm({activeChannelSettings, activeChannelObj, activeProject, se
                             <div className='channel-form-error'>{error}</div>
                         )
                     })}
-                    <form className='channel-form' onSubmit={(e) => handleSubmit(e)}>
+                    <form autocomplete="off" className='channel-form' onSubmit={(e) => handleSubmit(e)}>
                         <label className='channel-form-name-label' for='channel-form-name'> {channelFormType === 'post' ? 'Create Channel' : `Edit Channel Name`} </label>
                         <input id='channel-form-name-input' type='text'onChange={(e) => setName(e.target.value)} value={name || ''}/>
                         <button className='channel-form-submit' type='submit'> Save Channel </button>

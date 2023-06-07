@@ -1,5 +1,6 @@
 from .db import db
 
+
 class Project(db.Model):
     __tablename__ = 'projects'
 
@@ -9,7 +10,9 @@ class Project(db.Model):
     created_at_date = db.Column(db.DateTime, nullable=False)
     updated_at_date = db.Column(db.DateTime, nullable=False)
 
-    invitations = db.relationship('ProjectInvitation', back_populates='project')
+    channels= db.relationship("Channel", back_populates='projects', cascade="all, delete")
+
+    invitations = db.relationship('ProjectInvitation', back_populates='project', cascade="all, delete")
 
     def to_dict(self):
         return {

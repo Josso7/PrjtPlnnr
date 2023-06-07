@@ -17,8 +17,8 @@
     margin-left: 15px;
     font-family: 'Maragsa';
     font-size: 22px;
-    margin-top: 10px;
-    margin-bottom: 15px;
+    /* margin-top: 10px;
+    margin-bottom: 15px; */
     /* position: absolute;
     bottom: 20px; */
 }
@@ -308,4 +308,21 @@
 
 .empty-channels-text {
   text-align: center;
+}
+
+.user-settings-wrapper {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.user-logout-button {
+  margin-left: 10px;
+  color: red;
+}
+
+.user-logout-button:hover {
+  cursor: pointer;
 }

@@ -13,6 +13,7 @@ import SingleProjectChannel from './SingleProjectChannel';
 import { io } from 'socket.io-client';
 import InviteForm from '../Forms/InviteForm/InviteForm';
 import WestIcon from '@mui/icons-material/West';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
 
@@ -170,8 +171,11 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
                     <SingleProjectChannel activeProjectObj={activeProjectObj} setShowChannelSettings={setShowChannelSettings} showChannelSettings={showChannelSettings} channel={channel} setChannelFormType={setChannelFormType} activeChannelSettings={activeChannelSettings} setActiveChannelSettings={setActiveChannelSettings} setShowChannelForm={setShowChannelForm} handleActiveChannel={handleActiveChannel} />
                 ))}
                 </div>
-                <div className='username-text'>
-                    {user && `User: ` + user.username}
+                <div className='user-settings-wrapper'>
+                    <div className='username-text'>
+                        {user && `User: ` + user.username}
+                    </div>
+                    <LogoutIcon className='user-logout-button'/>
                 </div>
             </div>
             {showInviteForm && <InviteForm setShowInviteForm={setShowInviteForm} activeProject={activeProject}/>}

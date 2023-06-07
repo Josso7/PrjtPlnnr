@@ -140,7 +140,6 @@ def edit_project(project_id):
 # @login_required
 def invite_to_project(project_id):
     data = request.json
-    print(data)
     user = User.query.filter(func.lower(User.username) == data['username'].lower()).first()
     # add future validation if inviting permissions are not allowed for every project member
     if not user:

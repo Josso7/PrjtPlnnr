@@ -136,7 +136,6 @@ export default function reducer(state = initialState, action) {
       return { user: null }
       case REMOVE_INVITATION: {
         const newState = {...state}
-        console.log(newState)
         delete newState.user.invitations[action.invitationId]
         return newState
       }

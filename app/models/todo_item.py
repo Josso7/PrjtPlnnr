@@ -1,7 +1,11 @@
-from .db import db
+from .db import SCHEMA, add_prefix_for_prod, db, environment
+
 
 class Todo_Item(db.Model):
     __tablename__ = 'todo_items'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     channel_id = db.Column(db.Integer, nullable=False)

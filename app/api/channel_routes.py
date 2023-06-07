@@ -41,6 +41,5 @@ def edit_channel(channel_id):
     if channel:
         channel.name = data['name']
         db.session.commit()
-        print(channel.to_dict())
         return channel.to_dict()
     return 'Could not find channel'

@@ -24,8 +24,6 @@ function Messages({ activeProject, activeChannel, users, initialClick }) {
   const [activeEditMessage, setActiveEditMessage] = useState('')
   let channel;
 
-  console.log('rerender')
-
   useEffect(() => {
     socket = io();
 

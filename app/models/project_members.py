@@ -1,8 +1,11 @@
-from .db import db
+from .db import SCHEMA, add_prefix_for_prod, db, environment
 
 
 class ProjectMembers(db.Model):
     __tablename__ = 'project_members'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)

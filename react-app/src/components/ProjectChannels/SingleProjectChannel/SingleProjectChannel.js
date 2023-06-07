@@ -23,9 +23,7 @@ function SingleProjectChannel({ activeProjectObj, handleActiveChannel, channel, 
 
     const handleClick = (e, channelId) => {
         e.preventDefault();
-        console.log(e.target)
         if(!(e.target.matches('.channel-settings-icon *'))) {
-            console.log('in if statement')
             handleActiveChannel(channelId);
         }
     }

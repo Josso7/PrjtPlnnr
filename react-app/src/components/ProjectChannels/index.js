@@ -62,7 +62,6 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
 
     const closeEditProjectForm = (e) => {
         if(!(e.target.matches('.project-form-wrapper, .project-form-wrapper *')) && !(e.target.matches('.selected-project-wrapper, .selected-project-wrapper *' ))) {
-            console.log(initialClick)
             if(initialClick.current.id !== "project-form-name-input"){
                 setShowProjectEditForm(false)
             }
@@ -70,10 +69,7 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
     }
 
     const initialClickSetter = (e) => {
-        console.log(window.getSelection())
-        console.log(e)
         initialClick.current = e.target
-        console.log(initialClick.current)
     }
 
     const handleLeaveServer = () => {
@@ -162,7 +158,6 @@ function ProjectChannels({ activeProject, handleActiveChannel,initialClick }){
 
                     {channels.length && <div className='add-channel-button'
                         onClick={(e) => {
-                            console.log('show channel form')
                             setShowChannelForm(true)
                             setChannelFormType('post')
                             setActiveChannelObj(null)

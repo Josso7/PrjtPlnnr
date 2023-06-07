@@ -109,7 +109,6 @@ def on_leave_room(data):
 def heartbeat_check(user):
     # pass
     users[user['id']]['last_online'] = datetime.datetime.now().timestamp()
-    print('!!!!!!!!!!!!!!!!! HEARTBEAT FROM USER:', users[user['id']])
     for user in users.copy():
         if datetime.datetime.now().timestamp() - users[user]['last_online'] > 15:
             # print('!!!!!!!!!!!!!! USERS BEFORE DELETE !!!!!!!!!!!!!!!', users)

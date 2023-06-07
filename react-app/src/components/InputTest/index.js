@@ -16,11 +16,9 @@ function InputTest() {
 
     const initialClickSetter = (e) => {
         // console.log(window.getSelection())
-        console.log(e)
         // e.preventDefault();
         // e.stopPropagation();
         initialClick.current = e.target
-        console.log(initialClick.current)
     }
 
     useEffect(() => {

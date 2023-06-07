@@ -186,11 +186,9 @@ function ProjectNavbar({handleActiveProject, activeProject, initialClick }){
     const handleScroll = () => {
         hoveredProject.current = null
         setHoveredProjectName('')
-        console.log('yo')
     }
 
     useEffect(() => {
-        console.log(newProjectRef)
         setAddProjectHoverTextStyles({
             position: 'absolute',
             top: newProjectRef.current.getBoundingClientRect().y + 3,

@@ -30,10 +30,8 @@ function ChannelForm({activeChannelSettings, activeChannelObj, activeProject, se
         e.preventDefault();
         if(errors.length > 0) setDisplayErrors(true)
         if(errors.length === 0 && activeChannelObj) {
-            console.log('if')
             dispatch(editChannel(activeChannelObj.id, name)).then(setShowChannelForm(false))
         } else if(errors.length === 0){
-            console.log('else if')
             dispatch(postChannels(activeProject, name)).then(setShowChannelForm(false))
         }
     }

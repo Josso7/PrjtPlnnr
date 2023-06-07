@@ -1,12 +1,16 @@
-from .db import db
+from .db import SCHEMA, add_prefix_for_prod, db, environment
 
 
 class ProjectInvitation(db.Model):
     __tablename__ = 'project_invitations'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key = True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    inviter_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    inviter_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('projects.id')), nullable=False)
 
 
     user = db.relationship('User', foreign_keys=[user_id], back_populates='invitations')

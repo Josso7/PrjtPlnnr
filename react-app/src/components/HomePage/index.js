@@ -41,7 +41,6 @@ function HomePage() {
         if(firstRender.current === true){
             projectsLength.current = projects.length
             if(projects.length) {
-                console.log(projects[0]?.id)
                 setActiveProject(projects[0]?.id)
                 firstRender.current = false
             }
@@ -61,7 +60,6 @@ function HomePage() {
 
     const initialClickSetter = (e) => {
         initialClick.current = e.target
-        console.log(initialClick.current)
     }
 
     useEffect(() => {
